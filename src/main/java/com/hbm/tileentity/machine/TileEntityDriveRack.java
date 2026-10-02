@@ -8,7 +8,7 @@ public class TileEntityDriveRack extends TileEntityMachineBase {
 	public TileEntityDriveRack() { super(24); }
 
 	// pripyat
-	private static final int[] slots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+	public static final int[] all_slots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
 
 	@Override
 	public String getName() { return "tile.drive_rack"; }
@@ -24,7 +24,7 @@ public class TileEntityDriveRack extends TileEntityMachineBase {
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return slots;
+		return all_slots;
 	}
 
 	@Override
