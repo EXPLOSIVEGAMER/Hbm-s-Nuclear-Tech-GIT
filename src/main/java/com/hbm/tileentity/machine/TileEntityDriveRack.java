@@ -15,7 +15,11 @@ public class TileEntityDriveRack extends TileEntityMachineBase {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		return i >= 0 && i <= 23 && (stack.getItem() == ModItems.full_drive || stack.getItem() == ModItems.hard_drive);
+		if (i >= 0 && i <= 23 && (stack.getItem() == ModItems.full_drive || stack.getItem() == ModItems.hard_drive)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
