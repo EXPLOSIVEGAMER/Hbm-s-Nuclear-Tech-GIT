@@ -3,10 +3,10 @@ package com.hbm.tileentity.machine;
 import com.hbm.tileentity.TileEntityMachineBase;
 
 public class TileEntityDriveRack extends TileEntityMachineBase {
-	public TileEntityDriveRack() { super(10); }
+	public TileEntityDriveRack() { super(24); }
 
 	@Override
-	public String getName() { return "tile.machine_drive_rack"; }
+	public String getName() { return "tile.drive_rack"; }
 
 	@Override
 	public void updateEntity() {
