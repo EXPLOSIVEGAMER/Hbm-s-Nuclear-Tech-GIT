@@ -172,6 +172,7 @@ public class TileMappings {
 		put(TileEntityMachineEPress.class, "tileentity_electric_press");
 		put(TileEntityConveyorPress.class, "tileentity_conveyor_press");
 		put(com.hbm.tileentity.machine.TileEntityConveyorSpraypainter.class, "tileentity_conveyor_spraypainter");
+		put(TileEntityConveyorCombinator.class, "tileentity_conveyor_combinator");
 		put(TileEntityCoreEmitter.class, "tileentity_v0_emitter");
 		put(TileEntityCoreReceiver.class, "tileentity_v0_receiver");
 		put(TileEntityCoreInjector.class, "tileentity_v0_injector");
@@ -288,6 +289,7 @@ public class TileMappings {
 		put(TileEntityWandLogic.class, "tileentity_wand_spawner");
 		put(TileEntityWandTandem.class, "tileentity_wand_tandem");
 		put(TileEntityWandStructure.class, "tileentity_wand_structure");
+		put(TileEntityMachineGrowthChamber.class, "tileentity_growth_chamber");
 
 		putNetwork();
 		putBombs();
@@ -563,6 +565,7 @@ public class TileMappings {
 		put(TileEntityRadioAUTOCAL.class, "tileentity_rtty_autocal");
 		put(TileEntityGenomeSequencer.class, "tileentity_genome_sequencer");
 		put(TileEntityIncubator.class, "tileentity_incubator");
+		put(com.hbm.tileentity.machine.TileEntityMachineSplicer.class, "tileentity_splicer");
 		put(TileEntityCloner.class, "tileentity_cloner");
 		put(TileEntityMedicineSynthesizer.class, "tileentity_medicine_synthesizer");
 

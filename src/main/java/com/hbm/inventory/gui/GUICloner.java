@@ -3,7 +3,6 @@ package com.hbm.inventory.gui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -12,6 +11,7 @@ import com.hbm.inventory.container.ContainerCloner;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.gui.element.GUIElements;
+import com.hbm.items.ModItems;
 import com.hbm.items.special.ItemHumanPart;
 import com.hbm.items.special.ItemHumanPart.EnumBodyStat;
 import com.hbm.items.special.ItemHumanPart.EnumPartTrait;
@@ -25,6 +25,7 @@ import com.hbm.tileentity.machine.TileEntityCloner;
 import com.hbm.util.i18n.I18nUtil;
 import com.mojang.authlib.GameProfile;
 
+import api.hbm.fluidmk2.IFillableItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -74,27 +75,12 @@ public class GUICloner extends GuiInfoContainer {
 	}
 
 	private void updateProfile() {
-		String uuid = null;
-		String name = null;
 		ItemStack syringe = cloner.slots[TileEntityCloner.SLOT_SYRINGE];
+		String key = syringe == null || !syringe.hasTagCompound() ? "" : syringe.stackTagCompound.getString(ItemMedicalSyringe.KEY_OWNER_UUID);
 
-		if(syringe != null && syringe.hasTagCompound()) {
-			if(syringe.stackTagCompound.hasKey(ItemMedicalSyringe.KEY_OWNER_UUID)) uuid = syringe.stackTagCompound.getString(ItemMedicalSyringe.KEY_OWNER_UUID);
-			if(syringe.stackTagCompound.hasKey(ItemMedicalSyringe.KEY_OWNER_NAME)) name = syringe.stackTagCompound.getString(ItemMedicalSyringe.KEY_OWNER_NAME);
-		}
-
-		String key = uuid + "/" + name;
 		if(key.equals(this.profileKey)) return;
 		this.profileKey = key;
-		this.profile = null;
-
-		if(uuid == null || uuid.isEmpty()) return;
-
-		try {
-			this.profile = new GameProfile(UUID.fromString(uuid), name == null || name.isEmpty() ? uuid : name);
-		} catch(IllegalArgumentException ex) {
-			this.profile = null;
-		}
+		this.profile = SkinCache.owner(syringe);
 	}
 
 	@Override
@@ -102,6 +88,16 @@ public class GUICloner extends GuiInfoContainer {
 		super.drawScreen(mouseX, mouseY, interp);
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 188, guiTop + 19, 16, 34, cloner.getPower(), cloner.getMaxPower());
 		cloner.tank.renderTankInfo(this, mouseX, mouseY, guiLeft + 188, guiTop + 89, 16, 35);
+
+		if(this.isPreviewSlot(this.inventorySlots.getSlot(0), mouseX, mouseY)) this.drawStackPreview(getSyringes(), mouseX, mouseY);
+	}
+
+	private static List<ItemStack> getSyringes() {
+		List<ItemStack> list = new ArrayList<ItemStack>();
+		ItemStack syringe = new ItemStack(ModItems.medical_syringe);
+		IFillableItem.setFluidFill(syringe, Fluids.HUMAN_BLOOD, (short) ItemMedicalSyringe.MAX_DOSE);
+		list.add(syringe);
+		return list;
 	}
 
 	@Override

@@ -40,6 +40,7 @@ import com.hbm.items.special.ItemPlasticScrap.ScrapType;
 import com.hbm.items.tool.ItemConveyorWand.ConveyorType;
 import com.hbm.items.tool.ItemDrone.EnumDroneType;
 import com.hbm.items.tool.ItemGuideBook.BookType;
+import com.hbm.util.Compat;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -77,12 +78,13 @@ public class CraftingManager {
 		GameRegistry.addRecipe(new ScrapsCraftingHandler());
 		GameRegistry.addRecipe(new GrenadeCraftingHandler());
 
-		String[] crystalMats = { "Coal", "Iron", "Gold", "Redstone", "Lapis", "Diamond", "Uranium", "Thorium", "Plutonium", "Titanium", "Sulfur", "Niter", "Copper", "Tungsten", "Aluminium", "Fluorite", "Beryllium", "Lead", "Schraranium", "Schrabidium", "Rare", "Phosphorus", "Trixite", "Lithium", "Cobalt", "Mineral", "Nickel", "Niobium", "Zinc", "Osmiridium", "Cinnebar", "Starmetal" };
-		Item[] crystalItems = { ModItems.crystal_coal, ModItems.crystal_iron, ModItems.crystal_gold, ModItems.crystal_redstone, ModItems.crystal_lapis, ModItems.crystal_diamond, ModItems.crystal_uranium, ModItems.crystal_thorium, ModItems.crystal_plutonium, ModItems.crystal_titanium, ModItems.crystal_sulfur, ModItems.crystal_niter, ModItems.crystal_copper, ModItems.crystal_tungsten, ModItems.crystal_aluminium, ModItems.crystal_fluorite, ModItems.crystal_beryllium, ModItems.crystal_lead, ModItems.crystal_schraranium, ModItems.crystal_schrabidium, ModItems.crystal_rare, ModItems.crystal_phosphorus, ModItems.crystal_trixite, ModItems.crystal_lithium, ModItems.crystal_cobalt, ModItems.crystal_mineral, ModItems.crystal_nickel, ModItems.crystal_niobium, ModItems.crystal_zinc, ModItems.crystal_osmiridium, ModItems.crystal_cinnebar, ModItems.crystal_starmetal };
+		String[] crystalMats = { "Coal", "Iron", "Gold", "Redstone", "Lapis", "Diamond", "Uranium", "Thorium", "Plutonium", "Titanium", "Sulfur", "Niter", "Copper", "Tungsten", "Aluminium", "Fluorite", "Beryllium", "Lead", "Schraranium", "Schrabidium", "Rare", "Phosphorus", "Trixite", "Lithium", "Cobalt", "Mineral", "Nickel", "Niobium", "Zinc", "Osmiridium", "Cinnebar", "Starmetal", "Salt", "CertusQuartz" };
+		Item[] crystalItems = { ModItems.crystal_coal, ModItems.crystal_iron, ModItems.crystal_gold, ModItems.crystal_redstone, ModItems.crystal_lapis, ModItems.crystal_diamond, ModItems.crystal_uranium, ModItems.crystal_thorium, ModItems.crystal_plutonium, ModItems.crystal_titanium, ModItems.crystal_sulfur, ModItems.crystal_niter, ModItems.crystal_copper, ModItems.crystal_tungsten, ModItems.crystal_aluminium, ModItems.crystal_fluorite, ModItems.crystal_beryllium, ModItems.crystal_lead, ModItems.crystal_schraranium, ModItems.crystal_schrabidium, ModItems.crystal_rare, ModItems.crystal_phosphorus, ModItems.crystal_trixite, ModItems.crystal_lithium, ModItems.crystal_cobalt, ModItems.crystal_mineral, ModItems.crystal_nickel, ModItems.crystal_niobium, ModItems.crystal_zinc, ModItems.crystal_osmiridium, ModItems.crystal_cinnebar, ModItems.crystal_starmetal, Item.getItemFromBlock(ModBlocks.salt_cluster), Compat.isModLoaded(Compat.MOD_AE2) ? ModItems.quartz_crystal : null };
 
 		for(int i = 0; i < crystalMats.length; i++) {
-			Block crystalBlock = i < 16 ? ModBlocks.block_crystal : ModBlocks.block_crystal_2;
-			int meta = i < 16 ? i : i - 16;
+			if (crystalItems[i] == null) continue;
+			Block crystalBlock = i < 16 ? ModBlocks.block_crystal : i < 32 ? ModBlocks.block_crystal_2 : ModBlocks.block_crystal_3;
+			int meta = i < 16 ? i : i < 32 ? i - 16 : i - 32;
 
 			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(crystalBlock, 1, meta),
 					"crystal" + crystalMats[i], "crystal" + crystalMats[i], "crystal" + crystalMats[i], "crystal" + crystalMats[i]));
@@ -950,6 +952,7 @@ public class CraftingManager {
 		addRecipeAuto(new ItemStack(ModBlocks.crane_partitioner), new Object[] { " M ", "BCB", 'M', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.CHIP), 'B', DictFrame.fromOne(ModItems.conveyor_wand, ConveyorType.REGULAR), 'C', ModBlocks.crate_steel });
 
 		addRecipeAuto(new ItemStack(ModBlocks.machine_conveyor_press), new Object[] { "CPC", "CBC", "CCC", 'C', CU.plate(), 'P', ModBlocks.machine_epress, 'B', DictFrame.fromOne(ModItems.conveyor_wand, ConveyorType.REGULAR) });
+		addRecipeAuto(new ItemStack(ModBlocks.machine_conveyor_combinator), new Object[] { " S ", "MCM", " S ", 'S', STEEL.ingot(), 'M', ModItems.motor, 'C', DictFrame.fromOne(ModItems.conveyor_wand, ConveyorType.REGULAR) });
 		addRecipeAuto(new ItemStack(ModBlocks.radar_screen), new Object[] { "PCP", "SRS", "PCP", 'P', ANY_PLASTIC.ingot(), 'C', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.BASIC), 'S', STEEL.plate(), 'R', ModItems.crt_display });
 		addRecipeAuto(new ItemStack(ModItems.radar_linker), new Object[] { "S", "C", "P", 'S', ModItems.crt_display, 'C', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.BASIC), 'P', STEEL.plate() });
 

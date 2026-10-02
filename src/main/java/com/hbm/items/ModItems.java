@@ -61,6 +61,7 @@ import com.hbm.items.weapon.sedna.factory.GunFactory;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.machine.rbmk.IRBMKFluxReceiver.NType;
+import com.hbm.util.Compat;
 import com.hbm.util.RTGUtil;
 
 import api.hbm.block.IToolable.ToolType;
@@ -481,6 +482,8 @@ public class ModItems {
 	public static Item divine_shard;
 	public static Item symbol_guilt;
 	public static Item nostalgic_gears;
+	public static Item salt;
+	public static Item sodium_carbonate;
 
 	public static Item scuttertail;
 	public static Item saltleaf;
@@ -584,6 +587,9 @@ public class ModItems {
 	//but unforutnatley something went so chopped chin wrong
 	//now i cant do anything but sing this stupid song!!!!!!!!!!
 	public static Item crystal_zinc;
+	public static Item salt_shard;
+	public static Item quartz_crystal;
+	public static Item powder_certus_quartz;
 
 	public static Item nickel_salts;
 
@@ -2514,6 +2520,8 @@ public class ModItems {
 		divine_shard = new Item().setUnlocalizedName("divine_shard").setCreativeTab(null).setTextureName(RefStrings.MODID + ":divine_shard");
 		symbol_guilt = new ItemSymbol();
 		nostalgic_gears = new Item().setUnlocalizedName("nostalgic_gears").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":ergographia");
+		salt = new Item().setUnlocalizedName("salt").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":salt");
+		sodium_carbonate = new Item().setUnlocalizedName("sodium_carbonate").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":sodium_carbonate");
 
 		undefined = new ItemCustomLore().setUnlocalizedName("undefined").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":undefined");
 
@@ -2861,6 +2869,10 @@ public class ModItems {
 		crystal_nickel = new Item().setUnlocalizedName("crystal_nickel").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":crystal_nickel");
 		crystal_niobium = new Item().setUnlocalizedName("crystal_niobium").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":crystal_niobium");
 		crystal_zinc = new Item().setUnlocalizedName("crystal_zinc").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":crystal_zinc");
+		salt_shard = new Item().setUnlocalizedName("salt_shard").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":salt_shard");
+
+		quartz_crystal = new Item().setUnlocalizedName("quartz_crystal").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":quartz_crystal");
+		powder_certus_quartz = new Item().setUnlocalizedName("powder_certus_quartz").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_certus_quartz");
 
 		powder_lead = new Item().setUnlocalizedName("powder_lead").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_lead");
 		powder_tantalium = new ItemCustomLore().setUnlocalizedName("powder_tantalium").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_tantalium");
@@ -3703,7 +3715,8 @@ public class ModItems {
 		rbmk_fuel_bloatate = (ItemRBMKRod) new ItemRBMKRod(rbmk_pellet_bloatate)
 				.setYield(150_000_000D)
 				.setStats(100D)
-				.setFunction(EnumBurnFunc.LOG_TEN)
+				.setFunction(EnumBurnFunc.RISING_SQUARE)
+				.setDepletionFunction(EnumDepleteFunc.RISING_SQUARE)
 				.setHeat(3.0D)
 				.setMeltingPoint(3000)
 				.setTint(tintBloatate).setUnlocalizedName("rbmk_fuel_bloatate").setTextureName(RefStrings.MODID + ":rbmk_fuel_bloatate");
@@ -3864,8 +3877,8 @@ public class ModItems {
 
 		rbmk_fuel_dbm = (ItemRBMKRod) new ItemRBMKRod(rbmk_pellet_dbm)
 			.setYield(100000000D)
-			.setStats(50)
-			.setFunction(EnumBurnFunc.SQUARE_ROOT)
+			.setStats(50, 20)
+			.setFunction(EnumBurnFunc.BUURMIUM)
 			.setHeat(1.25D)
 			.setMeltingPoint(2137)
 			.setNeutronTypes(NType.SLOW, NType.FAST)
@@ -3873,8 +3886,8 @@ public class ModItems {
 			.setUnlocalizedName("rbmk_fuel_dbm").setTextureName(RefStrings.MODID + ":rbmk_fuel_dbm");
 		rbmk_fuel_pbm = (ItemRBMKRod) new ItemRBMKRod(rbmk_pellet_pbm)
 			.setYield(100000000D)
-			.setStats(75)
-			.setFunction(EnumBurnFunc.SQUARE_ROOT)
+			.setStats(75, 40)
+			.setFunction(EnumBurnFunc.PURE_BUURMIUM)
 			.setHeat(2.0D)
 			.setMeltingPoint(3000)
 			.setNeutronTypes(NType.SLOW, NType.FAST)
@@ -5511,6 +5524,12 @@ public class ModItems {
 		GameRegistry.registerItem(crystal_nickel, crystal_nickel.getUnlocalizedName()); //l like nickel, i dont care, fuck off
 		GameRegistry.registerItem(crystal_niobium, crystal_niobium.getUnlocalizedName()); // the true path to enlightenment is ignoring the little green circle
 		GameRegistry.registerItem(crystal_zinc, crystal_zinc.getUnlocalizedName()); // the true path to enlightenment is ignoring the little green circle
+		GameRegistry.registerItem(salt_shard, salt_shard.getUnlocalizedName());
+
+		if (Compat.isModLoaded(Compat.MOD_AE2)) {
+			GameRegistry.registerItem(quartz_crystal, quartz_crystal.getUnlocalizedName());
+			GameRegistry.registerItem(powder_certus_quartz, powder_certus_quartz.getUnlocalizedName());
+		}
 
 		//Fragments
 		GameRegistry.registerItem(fragment_neodymium, fragment_neodymium.getUnlocalizedName());
@@ -5715,6 +5734,8 @@ public class ModItems {
 		GameRegistry.registerItem(divine_shard, divine_shard.getUnlocalizedName());
 		GameRegistry.registerItem(symbol_guilt, symbol_guilt.getUnlocalizedName());
 		GameRegistry.registerItem(nostalgic_gears, nostalgic_gears.getUnlocalizedName());
+		GameRegistry.registerItem(salt, salt.getUnlocalizedName());
+		GameRegistry.registerItem(sodium_carbonate, sodium_carbonate.getUnlocalizedName());
 
 		//Plant Products
 		GameRegistry.registerItem(plant_item, plant_item.getUnlocalizedName());

@@ -58,7 +58,9 @@ public class BlockEnums {
 		ZINC,
 		OSMIRIDIUM,
 		CINNEBAR,
-		STARMETAL
+		STARMETAL,
+		SALT,
+		CERTUS
 	}
 
 	public static enum EnumRawOreBlockType {
