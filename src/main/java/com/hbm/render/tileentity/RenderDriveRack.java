@@ -17,7 +17,7 @@ public class RenderDriveRack extends TileEntitySpecialRenderer implements IItemR
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float inter) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5D, y, z + 0.5D);
-		GL11.glEnable(GL11.GL_LIGHTING); // let there be light..i guess
+		GL11.glEnable(GL11.GL_LIGHTING); // 'Let there be light.' That's, uh... God. I was quoting God."
 		GL11.glEnable(GL11.GL_CULL_FACE);
 
 		// boy you better switch up that attitude
@@ -37,7 +37,7 @@ public class RenderDriveRack extends TileEntitySpecialRenderer implements IItemR
 
 	@Override
 	public Item getItemForRenderer() {
-		return Item.getItemFromBlock(ModBlocks.machine_drive_rack);
+		return Item.getItemFromBlock(ModBlocks.drive_rack);
 	}
 
 	@Override
