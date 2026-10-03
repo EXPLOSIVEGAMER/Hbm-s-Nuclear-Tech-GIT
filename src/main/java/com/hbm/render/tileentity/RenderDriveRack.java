@@ -2,6 +2,7 @@ package com.hbm.render.tileentity;
 
 import com.hbm.main.ResourceManager;
 import com.hbm.render.item.ItemRenderBase;
+import com.hbm.tileentity.machine.TileEntityDriveRack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
@@ -17,7 +18,7 @@ public class RenderDriveRack extends TileEntitySpecialRenderer implements IItemR
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float inter) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5D, y, z + 0.5D);
-		GL11.glEnable(GL11.GL_LIGHTING); // let there be light..i guess
+		GL11.glEnable(GL11.GL_LIGHTING); // 'Let there be light.' That's, uh... God. I was quoting God."
 		GL11.glEnable(GL11.GL_CULL_FACE);
 
 		// boy you better switch up that attitude
@@ -32,12 +33,20 @@ public class RenderDriveRack extends TileEntitySpecialRenderer implements IItemR
 		bindTexture(ResourceManager.drive_rack_tex);
 		ResourceManager.drive_rack.renderPart("rack");
 
+		TileEntityDriveRack rack = (TileEntityDriveRack) te;
+
+		for (int i = 0; i < rack.slots.length; i++) {
+			if (rack.slots[i] != null) {
+				ResourceManager.drive_rack.renderPart("drive" + (i + 1));
+			}
+		}
+
 		GL11.glPopMatrix();
 	}
 
 	@Override
 	public Item getItemForRenderer() {
-		return Item.getItemFromBlock(ModBlocks.machine_drive_rack);
+		return Item.getItemFromBlock(ModBlocks.drive_rack);
 	}
 
 	@Override

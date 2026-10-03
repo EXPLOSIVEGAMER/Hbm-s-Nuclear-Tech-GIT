@@ -1587,7 +1587,7 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 
 		/// IQ ///
 		// machina
-		this.register(new GenericRecipe("tile.machine_drive_rack").setup(400, 200).outputItems(new ItemStack(ModBlocks.machine_drive_rack, 1))
+		this.register(new GenericRecipe("tile.drive_rack").setup(400, 200).outputItems(new ItemStack(ModBlocks.drive_rack, 1))
 			.inputItems(
 				new OreDictStack(AL.plateCast(), 6),
 				new OreDictStack(ANY_HARDPLASTIC.ingot(), 4),

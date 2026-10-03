@@ -1248,8 +1248,6 @@ public class ModBlocks {
 	public static Block machine_autocrafter;
 	public static Block machine_funnel;
 
-	public static Block machine_drive_rack;
-
 	public static Block anvil_iron;
 	public static Block anvil_lead;
 	public static Block anvil_steel;
@@ -1461,6 +1459,7 @@ public class ModBlocks {
 	public static Block orbital_station_port;
 	public static Block orbital_station_launcher;
 	public static Block orbital_station_computer;
+	public static Block drive_rack;
 	public static Block propulsion_creative;
 
 	public static Block dyson_launcher;
@@ -2172,7 +2171,7 @@ public class ModBlocks {
 		machine_boiler = new MachineHeatBoiler().setBlockName("machine_boiler").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_copper");
 		machine_industrial_boiler = new MachineHeatBoilerIndustrial().setBlockName("machine_industrial_boiler").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 
-		machine_drive_rack = new MachineDriveRack(Material.iron).setBlockName("machine_drive_rack").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":machine_drive_rack");
+		drive_rack = new BlockDriveRack(Material.iron).setBlockName("drive_rack").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":drive_rack");
 
 		foundry_mold = new FoundryMold().setBlockName("foundry_mold").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":brick_fire");
 		foundry_basin = new FoundryBasin().setBlockName("foundry_basin").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":brick_fire");
@@ -3727,7 +3726,6 @@ public class ModBlocks {
 		register(machine_sawmill);
 		register(machine_crucible);
 		register(machine_strand_caster);
-		register(machine_drive_rack);
 		register(machine_boiler);
 		register(machine_industrial_boiler);
 		register(foundry_mold);
@@ -4252,6 +4250,7 @@ public class ModBlocks {
 		register(orbital_station_port);
 		register(orbital_station_launcher);
 		register(orbital_station_computer);
+		register(drive_rack);
 		register(propulsion_creative);
 
 		register(dyson_launcher);
