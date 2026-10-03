@@ -3,7 +3,6 @@ package com.hbm.blocks.machine;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.dim.CelestialBody;
 import com.hbm.items.ItemVOTVdrive;
-import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.machine.TileEntityDriveRack;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
