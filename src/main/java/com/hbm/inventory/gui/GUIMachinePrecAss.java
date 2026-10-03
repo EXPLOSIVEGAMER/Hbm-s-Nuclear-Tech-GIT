@@ -21,8 +21,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachinePrecAss extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_precass.png");
-	private TileEntityMachinePrecAss assembler;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_precass.png");
+	private final TileEntityMachinePrecAss assembler;
 
 	public GUIMachinePrecAss(InventoryPlayer invPlayer, TileEntityMachinePrecAss tedf) {
 		super(new ContainerMachinePrecAss(invPlayer, tedf));
@@ -47,6 +47,26 @@ public class GUIMachinePrecAss extends GuiInfoContainer {
 				GUIElements.drawHoveringTextRecipe(recipe.print(), mouseX, mouseY, this.fontRendererObj, itemRender, this.width, this.height);
 			} else {
 				this.drawCreativeTabHoveringText(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("gui.recipe.setRecipe"), mouseX, mouseY);
+			}
+		}
+
+		/// TIME REMAINING LABEL ///
+		if(assembler.assemblerModule.getRecipe() != null && assembler.assemblerModule.progress > 0) {
+			if(mouseX >= guiLeft + 62 && mouseX <= guiLeft + 132
+				&& mouseY >= guiTop + 126 && mouseY <= guiTop + 142) {
+				int remaining = (int)Math.ceil(
+					(assembler.assemblerModule.getRecipe().duration
+						* (1D - assembler.assemblerModule.progress)) / 20
+				);
+
+				String time = remaining >= 60
+					? (remaining / 60) + "m " + (remaining % 60) + "s"
+					: remaining + "s";
+
+				this.drawCreativeTabHoveringText(
+					"Time remaining: " + time,
+					mouseX, mouseY
+				);
 			}
 		}
 	}
