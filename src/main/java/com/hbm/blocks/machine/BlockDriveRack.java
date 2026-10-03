@@ -53,17 +53,37 @@ public class BlockDriveRack extends BlockDummyable {
 			ItemStack heldStack = player.getHeldItem();
 
 			if (heldStack != null && heldStack.getItem() instanceof ItemVOTVdrive) {
-				if (rack.slots[0] != null)
-					return false;
-			} else if (heldStack == null && rack.slots[0] != null) {
-				if(!player.inventory.addItemStackToInventory(rack.slots[0].copy())) {
-					player.dropPlayerItemWithRandomChoice(rack.slots[0].copy(), false);
+				for (int i = 0; i < rack.slots.length; i++) {
+					if (rack.slots[i] == null) {
+						rack.slots[i] = heldStack.copy();
+						heldStack.stackSize = 0;
+						rack.markChanged();
+						world.playSoundEffect(
+							x, y, z,
+							"hbm:item.upgradePlug",
+							1.0F,
+							1.0F
+						);
+						break;
+					}
 				}
-				rack.slots[0] = null;
-				rack.markChanged();
-			}
+			} else if (heldStack == null) {
+				for (int i = 0; i < rack.slots.length; i++) {
+					if (rack.slots[i] != null) {
+						if (!player.inventory.addItemStackToInventory(rack.slots[i].copy())) {
+							player.dropPlayerItemWithRandomChoice(
+								rack.slots[i].copy(),
+								false
+							);
+						}
 
-			return true;
+						rack.slots[i] = null;
+						rack.markChanged();
+						break;
+					}
+				}
+			}
 		}
+		return true;
 	}
 }
