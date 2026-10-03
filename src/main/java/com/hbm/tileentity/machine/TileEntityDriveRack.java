@@ -2,6 +2,8 @@ package com.hbm.tileentity.machine;
 
 import com.hbm.items.ModItems;
 import com.hbm.tileentity.TileEntityMachineBase;
+import com.hbm.util.BufferUtil;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 
 public class TileEntityDriveRack extends TileEntityMachineBase {
@@ -29,6 +31,26 @@ public class TileEntityDriveRack extends TileEntityMachineBase {
 
 	@Override
 	public void updateEntity() {
+		if (!worldObj.isRemote) {
+			networkPackNT(50);
+		}
+	}
 
+	@Override
+	public void serialize(ByteBuf buf) {
+		super.serialize(buf);
+
+		for (ItemStack slot : slots) {
+			BufferUtil.writeItemStack(buf, slot);
+		}
+	}
+
+	@Override
+	public void deserialize(ByteBuf buf) {
+		super.deserialize(buf);
+
+		for (int i = 0; i < slots.length; i++) {
+			slots[i] = BufferUtil.readItemStack(buf);
+		}
 	}
 }

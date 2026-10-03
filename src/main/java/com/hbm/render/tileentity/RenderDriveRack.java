@@ -2,6 +2,7 @@ package com.hbm.render.tileentity;
 
 import com.hbm.main.ResourceManager;
 import com.hbm.render.item.ItemRenderBase;
+import com.hbm.tileentity.machine.TileEntityDriveRack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
@@ -31,6 +32,14 @@ public class RenderDriveRack extends TileEntitySpecialRenderer implements IItemR
 		GL11.glShadeModel(GL11.GL_FLAT);
 		bindTexture(ResourceManager.drive_rack_tex);
 		ResourceManager.drive_rack.renderPart("rack");
+
+		TileEntityDriveRack rack = (TileEntityDriveRack) te;
+
+		for (int i = 0; i < rack.slots.length; i++) {
+			if (rack.slots[i] != null) {
+				ResourceManager.drive_rack.renderPart("drive" + (i + 1));
+			}
+		}
 
 		GL11.glPopMatrix();
 	}
