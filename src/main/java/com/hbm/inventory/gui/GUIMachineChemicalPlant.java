@@ -20,8 +20,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineChemicalPlant extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_chemplant.png");
-	private TileEntityMachineChemicalPlant chemplant;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_chemplant.png");
+	private final TileEntityMachineChemicalPlant chemplant;
 
 	public GUIMachineChemicalPlant(InventoryPlayer invPlayer, TileEntityMachineChemicalPlant tedf) {
 		super(new ContainerMachineChemicalPlant(invPlayer, tedf));
@@ -48,6 +48,26 @@ public class GUIMachineChemicalPlant extends GuiInfoContainer {
 				GUIElements.drawHoveringTextRecipe(recipe.print(), mouseX, mouseY, this.fontRendererObj, itemRender, this.width, this.height);
 			} else {
 				this.drawCreativeTabHoveringText(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("gui.recipe.setRecipe"), mouseX, mouseY);
+			}
+		}
+
+		/// TIME REMAINING LABEL ///
+		if(chemplant.chemplantModule.getRecipe() != null && chemplant.chemplantModule.progress > 0) {
+			if(mouseX >= guiLeft + 62 && mouseX <= guiLeft + 132
+				&& mouseY >= guiTop + 126 && mouseY <= guiTop + 142) {
+				int remaining = (int)Math.ceil(
+					(chemplant.chemplantModule.getRecipe().duration
+						* (1D - chemplant.chemplantModule.progress)) / 20
+				);
+
+				String time = remaining >= 60
+					? (remaining / 60) + "m " + (remaining % 60) + "s"
+					: remaining + "s";
+
+				this.drawCreativeTabHoveringText(
+					"Time remaining: " + time,
+					mouseX, mouseY
+				);
 			}
 		}
 	}
