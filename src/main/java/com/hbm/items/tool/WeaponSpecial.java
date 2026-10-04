@@ -288,6 +288,11 @@ public class WeaponSpecial extends ItemSword {
 			list.add(EnumChatFormatting.RED + "No random critical hits");
 		}
 
+		if(this == ModItems.golden_wrench) {
+			list.add(EnumChatFormatting.YELLOW + "Limited Level 25 Wrench");
+			list.add(EnumChatFormatting.AQUA + "Imbued with an ancient power");
+		}
+
 		if(this == ModItems.wood_gavel) {
 			list.add("Thunk!");
 		}
