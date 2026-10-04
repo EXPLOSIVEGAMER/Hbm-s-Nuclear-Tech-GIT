@@ -68,6 +68,12 @@ public class WeaponSpecial extends ItemSword {
 			world.playSoundAtEntity(entity, NTMSounds.GWRENCH_HIT, 1.0F, 1.0F);
 			if(entity.getHealth() == 0) {
 				world.playSoundAtEntity(entity, NTMSounds.GWRENCH_KILL, 1.0F, 1.0F);
+
+				// i can't stop winning
+				if(world.rand.nextInt(100) < 15) {
+					int ingots = world.rand.nextInt(3) + 1;
+					entity.dropItem(ModItems.ingot_australium, ingots);
+				}
 			}
 		}
 
