@@ -92,6 +92,10 @@ public class NTMSounds {
 	public static final String GUN_SOLDIER_TF2_BOAT_EXE_WAV_MP3 = "hbm:weapon.boat";
 	public static final String GUN_MINI_NUKE_EXPLOSION = "hbm:weapon.mukeExplosion";
 
+	/// GOLDEN WRENCH ///
+	public static final String GWRENCH_HIT = "hbm:gWrench.hit";
+	public static final String GWRENCH_KILL = "hbm:gWrench.kill";
+
 	/// TURRETS ///
 	public static final String TURRET_50BMG = "hbm:turret.chekhov_fire";
 	public static final String TURRET_CIWS_RELOAD = "hbm:turret.howard_reload";

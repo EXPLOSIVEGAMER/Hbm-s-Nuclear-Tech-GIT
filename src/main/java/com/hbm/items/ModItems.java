@@ -3097,7 +3097,7 @@ public class ModItems {
 		wiring_red_copper = new ItemWiring().setUnlocalizedName("wiring_red_copper").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wiring_red_copper");
 		wrench = new ItemWrench(MainRegistry.tMatSteel).setUnlocalizedName("wrench").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wrench");
 
-		golden_wrench = new ItemCustomLore().setRarity(EnumRarity.uncommon).setUnlocalizedName("golden_wrench").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":golden_wrench");
+		golden_wrench = new WeaponSpecial(MainRegistry.tMatSteel).setUnlocalizedName("golden_wrench").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":golden_wrench");
 
 		pellet_rtg_depleted = new ItemRTGPelletDepleted().setContainerItem(plate_iron).setUnlocalizedName("pellet_rtg_depleted").setCreativeTab(MainRegistry.controlTab);
 
