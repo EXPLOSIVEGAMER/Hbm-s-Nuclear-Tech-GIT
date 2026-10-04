@@ -772,6 +772,8 @@ public class ModItems {
 	public static Item wiring_red_copper;
 	public static Item wrench;
 
+	public static Item golden_wrench;
+
 	public static Item shell;
 	public static Item pipe;
 	public static Item fins_flat;
@@ -3094,6 +3096,8 @@ public class ModItems {
 
 		wiring_red_copper = new ItemWiring().setUnlocalizedName("wiring_red_copper").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wiring_red_copper");
 		wrench = new ItemWrench(MainRegistry.tMatSteel).setUnlocalizedName("wrench").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":wrench");
+
+		golden_wrench = new WeaponSpecial(MainRegistry.tMatSteel).setUnlocalizedName("golden_wrench").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":golden_wrench");
 
 		pellet_rtg_depleted = new ItemRTGPelletDepleted().setContainerItem(plate_iron).setUnlocalizedName("pellet_rtg_depleted").setCreativeTab(MainRegistry.controlTab);
 
@@ -6770,6 +6774,7 @@ public class ModItems {
 		GameRegistry.registerItem(balefire_and_steel, balefire_and_steel.getUnlocalizedName());
 		GameRegistry.registerItem(crowbar, crowbar.getUnlocalizedName());
 		GameRegistry.registerItem(wrench, wrench.getUnlocalizedName());
+		GameRegistry.registerItem(golden_wrench, golden_wrench.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_archineer, wrench_archineer.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_flipped, wrench_flipped.getUnlocalizedName());
 		GameRegistry.registerItem(memespoon, memespoon.getUnlocalizedName());

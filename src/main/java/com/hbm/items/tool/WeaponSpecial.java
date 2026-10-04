@@ -44,7 +44,7 @@ public class WeaponSpecial extends ItemSword {
 		if(this == ModItems.schrabidium_hammer) {
 			return EnumRarity.rare;
 		}
-		if(this == ModItems.ullapool_caber) {
+		if(this == ModItems.ullapool_caber || this == ModItems.golden_wrench) {
 			return EnumRarity.uncommon;
 		}
 		if(this == ModItems.shimmer_sledge || this == ModItems.shimmer_axe) {
@@ -63,6 +63,18 @@ public class WeaponSpecial extends ItemSword {
 				entity.setHealth(0.0F);
 			}
 			world.playSoundAtEntity(entity, NTMSounds.BONK, 3.0F, 1.0F);
+		}
+		if(this == ModItems.golden_wrench) {
+			world.playSoundAtEntity(entity, NTMSounds.GWRENCH_HIT, 1.0F, 1.0F);
+			if(entity.getHealth() == 0) {
+				world.playSoundAtEntity(entity, NTMSounds.GWRENCH_KILL, 1.0F, 1.0F);
+
+				// i can't stop winning
+				if(world.rand.nextInt(100) < 15) {
+					int ingots = world.rand.nextInt(3) + 1;
+					entity.dropItem(ModItems.ingot_australium, ingots);
+				}
+			}
 		}
 
 		if(this == ModItems.bottle_opener) {
@@ -280,6 +292,11 @@ public class WeaponSpecial extends ItemSword {
 			list.add(EnumChatFormatting.AQUA + "Deals crits while the wielder is rocket jumping");
 			list.add(EnumChatFormatting.RED + "20% slower firing speed");
 			list.add(EnumChatFormatting.RED + "No random critical hits");
+		}
+
+		if(this == ModItems.golden_wrench) {
+			list.add(EnumChatFormatting.YELLOW + "Limited Level 25 Wrench");
+			list.add(EnumChatFormatting.AQUA + "Imbued with an ancient power");
 		}
 
 		if(this == ModItems.wood_gavel) {
