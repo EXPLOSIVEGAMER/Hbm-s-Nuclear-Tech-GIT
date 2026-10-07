@@ -460,6 +460,10 @@ public class LegoClient {
 	public static BiConsumer<EntityBulletBeamBase, Float> RENDER_LASER_CYAN = (bullet, interp) -> {
 		renderStandardLaser(bullet, interp, 0x15, 0x15, 0x80);
 	};
+
+	public static BiConsumer<EntityBulletBeamBase, Float> RENDER_LASER_CERTUS = (bullet, interp) -> {
+		renderStandardLaser(bullet, interp, 0x50, 0xA0, 0xFF);
+	};
 	public static BiConsumer<EntityBulletBeamBase, Float> RENDER_LASER_PURPLE = (bullet, interp) -> {
 		renderStandardLaser(bullet, interp, 0x60, 0x15, 0x80);
 	};

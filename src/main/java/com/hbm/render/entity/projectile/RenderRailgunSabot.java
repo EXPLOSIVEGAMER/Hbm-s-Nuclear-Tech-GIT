@@ -1,6 +1,7 @@
 package com.hbm.render.entity.projectile;
 
 import com.hbm.entity.projectile.EntityRailgunProjectile;
+import com.hbm.items.weapon.ItemAmmoRailgun;
 import com.hbm.main.ResourceManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -37,6 +38,7 @@ public class RenderRailgunSabot extends Render {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
-		return ResourceManager.flechette_tex;
+		EntityRailgunProjectile sabot = (EntityRailgunProjectile) entity;
+		return ItemAmmoRailgun.itemTypes[sabot.getDataWatcher().getWatchableObjectInt(10)].texture;
 	}
 }

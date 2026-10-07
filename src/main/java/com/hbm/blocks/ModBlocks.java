@@ -208,6 +208,13 @@ public class ModBlocks {
 	public static Block certus_quartz_bud_medium;
 	public static Block certus_quartz_bud_small;
 
+	public static final int CERTUS_META = 1;
+
+	public static Block certus_quartz_block;
+	public static Block certine_netherrack;
+	public static Block frozen_netherrack;
+	public static Block certic_geyser;
+
 	public static Block block_thorium;
 	public static Block block_thorium_fuel;
 	public static Block block_uranium;
@@ -272,6 +279,7 @@ public class ModBlocks {
 	public static Block block_yellowcake;
 	public static Block block_insulator;
 	public static Block block_fiberglass;
+	public static Block block_fiberglass_certine;
 	public static Block block_asbestos;
 	public static Block block_cobalt;
 	public static Block block_lithium;
@@ -1365,6 +1373,7 @@ public class ModBlocks {
 	public static Block gas_monoxide;
 	public static Block gas_asbestos;
 	public static Block gas_coal;
+	public static Block gas_certus;
 	public static Block gas_flammable;
 	public static Block gas_explosive;
 
@@ -1401,6 +1410,8 @@ public class ModBlocks {
 
 	public static Block sulfuric_acid_block;
 	public static Fluid sulfuric_acid_fluid;
+	public static Block uranus_tears_block;
+	public static Fluid uranus_tears_fluid;
 
 	public static Block mercury_block;
 	public static Fluid mercury_fluid;
@@ -1592,7 +1603,7 @@ public class ModBlocks {
 		stone_resource = new BlockResourceStone().setBlockName("stone_resource").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F);
 		block_crystal = new BlockCrystalBlock(0, 16).setBlockName("block_crystal").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":crystal_block");
 		block_crystal_2 = new BlockCrystalBlock(16, 16).setBlockName("block_crystal_2").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":crystal_block");
-		block_crystal_3 = new BlockCrystalBlock(32, 1).setBlockName("block_crystal_3").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":crystal_block");
+		block_crystal_3 = new BlockCrystalBlock(32, 2).setBlockName("block_crystal_3").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":crystal_block");
 		block_raw_ore = new BlockRawOreBlock(0, 16).setBlockName("block_raw_ore").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":block_raw_ore");
 		block_raw_ore_2 = new BlockRawOreBlock(16, 8).setBlockName("block_raw_ore_2").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setStepSound(ModSoundTypes.crystalBlock).setBlockTextureName(RefStrings.MODID + ":block_raw_ore");
 		stalagmite = new BlockStalagmite().setBlockName("stalagmite").setCreativeTab(MainRegistry.blockTab).setHardness(0.5F).setResistance(2.0F);
@@ -1646,6 +1657,9 @@ public class ModBlocks {
 		certus_quartz_bud_medium = new BlockBudCertusQuartz(Material.glass, 1, 0.3125f, 0.25f).setNextStage(certus_quartz_bud_large).setBlockName("certus_quartz_bud_medium").setCreativeTab(MainRegistry.blockTab).setHardness(1.5f).setStepSound(Block.soundTypeGlass);
 		certus_quartz_bud_small = new BlockBudCertusQuartz(Material.glass, 0, 0.25f, 0.1875f).setNextStage(certus_quartz_bud_medium).setBlockName("certus_quartz_bud_small").setCreativeTab(MainRegistry.blockTab).setHardness(1.5f).setStepSound(Block.soundTypeGlass);
 
+		certine_netherrack = new BlockBase(Material.rock).setBlockName("certine_netherrack").setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypePiston);
+		frozen_netherrack = new BlockBase(Material.rock).setBlockName("frozen_netherrack").setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(10.0F).setStepSound(Block.soundTypePiston);
+		certic_geyser = new BlockCerticGeyser().setBlockName("certic_geyser").setCreativeTab(MainRegistry.blockTab).setHardness(3.0F).setResistance(15.0F).setBlockTextureName(RefStrings.MODID + ":crystal_block");
 		// the block ID limit is weeping
 		block_uranium = new BlockHazard().makeBeaconable().setBlockName("block_uranium").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(50.0F).setBlockTextureName(RefStrings.MODID + ":block_uranium");
 		block_u233 = new BlockHazard().makeBeaconable().setDisplayEffect(ExtDisplayEffect.RADFOG).setBlockName("block_u233").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(50.0F).setBlockTextureName(RefStrings.MODID + ":block_u233");
@@ -1712,6 +1726,7 @@ public class ModBlocks {
 		block_yellowcake = new BlockHazardFalling().makeBeaconable().setBlockName("block_yellowcake").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeSand).setHardness(5.0F).setResistance(10.0F).setBlockTextureName(RefStrings.MODID + ":block_yellowcake");
 		block_insulator = new BlockRotatablePillar(Material.cloth, RefStrings.MODID + ":block_insulator_top").setBlockName("block_insulator").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeCloth).setHardness(5.0F).setResistance(10.0F).setBlockTextureName(RefStrings.MODID + ":block_insulator_side");
 		block_fiberglass = new BlockRotatablePillar(Material.cloth, RefStrings.MODID + ":block_fiberglass_top").setBlockName("block_fiberglass").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeCloth).setHardness(5.0F).setResistance(15.0F).setBlockTextureName(RefStrings.MODID + ":block_fiberglass_side");
+		block_fiberglass_certine = new BlockFiberglassCertine().setBlockName("block_fiberglass_certine").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(15.0F).setStepSound(Block.soundTypeGlass).setBlockTextureName(RefStrings.MODID + ":block_fiberglass_certine");
 		block_asbestos = new BlockOutgas(Material.cloth, true, 5, true).setBlockName("block_asbestos").setCreativeTab(MainRegistry.blockTab).setStepSound(Block.soundTypeCloth).setHardness(5.0F).setResistance(15.0F).setBlockTextureName(RefStrings.MODID + ":block_asbestos");
 		block_cobalt = new BlockBeaconable(Material.iron).setBlockName("block_cobalt").setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(50.0F).setBlockTextureName(RefStrings.MODID + ":block_cobalt");
 		block_lithium = new BlockLithium(Material.iron).setBlockName("block_lithium").setStepSound(Block.soundTypeMetal).setCreativeTab(MainRegistry.blockTab).setHardness(5.0F).setResistance(10.0F).setBlockTextureName(RefStrings.MODID + ":block_lithium");
@@ -2755,6 +2770,7 @@ public class ModBlocks {
 		gas_monoxide = new BlockGasMonoxide().setBlockName("gas_monoxide").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_monoxide");
 		gas_asbestos = new BlockGasAsbestos().setBlockName("gas_asbestos").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_asbestos");
 		gas_coal = new BlockGasCoal().setBlockName("gas_coal").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_coal");
+		gas_certus = new BlockGasCertus().setBlockName("gas_certus").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_certus");
 		gas_flammable = new BlockGasFlammable().setBlockName("gas_flammable").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_flammable");
 		gas_explosive = new BlockGasExplosive().setBlockName("gas_explosive").setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":gas_explosive");
 
@@ -2824,6 +2840,10 @@ public class ModBlocks {
 		ccl_fluid = new GenericFluid("ccl_fluid").setDensity(1840).setViscosity(1000).setTemperature(273);
 		FluidRegistry.registerFluid(ccl_fluid);
 		ccl_block = new GenericFluidBlock(ccl_fluid, Material.water, "ccl", "ccl_flowing").setDamage(ModDamageSource.lead, 1F).setBlockName("ccl_block").setResistance(500F);
+
+		uranus_tears_fluid = new GenericFluid("uranus_tears_fluid").setDensity(3000).setViscosity(3000).setTemperature(300).setLuminosity(8);
+		FluidRegistry.registerFluid(uranus_tears_fluid);
+		uranus_tears_block = new GenericFluidBlock(uranus_tears_fluid, Material.water, "uranus_tears_still", "uranus_tears_flowing").setBlockName("uranus_tears_block").setResistance(500F);
 
 
 		dummy_block_blast = new DummyBlockBlast(Material.iron).setBlockName("dummy_block_blast").setHardness(10.0F).setResistance(10000.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":block_steel");
@@ -3025,14 +3045,15 @@ public class ModBlocks {
 		GameRegistry.registerBlock(salt_bud_medium, salt_bud_medium.getUnlocalizedName());
 		GameRegistry.registerBlock(salt_bud_small, salt_bud_small.getUnlocalizedName());
 
-		//Certus Quartz
-		if (Compat.isModLoaded(Compat.MOD_AE2)) {
-			GameRegistry.registerBlock(budding_certus_quartz, budding_certus_quartz.getUnlocalizedName());
-			GameRegistry.registerBlock(certus_quartz_cluster, certus_quartz_cluster.getUnlocalizedName());
-			GameRegistry.registerBlock(certus_quartz_bud_large, certus_quartz_bud_large.getUnlocalizedName());
-			GameRegistry.registerBlock(certus_quartz_bud_medium, certus_quartz_bud_medium.getUnlocalizedName());
-			GameRegistry.registerBlock(certus_quartz_bud_small, certus_quartz_bud_small.getUnlocalizedName());
-		}
+		GameRegistry.registerBlock(budding_certus_quartz, budding_certus_quartz.getUnlocalizedName());
+		GameRegistry.registerBlock(certus_quartz_cluster, certus_quartz_cluster.getUnlocalizedName());
+		GameRegistry.registerBlock(certus_quartz_bud_large, certus_quartz_bud_large.getUnlocalizedName());
+		GameRegistry.registerBlock(certus_quartz_bud_medium, certus_quartz_bud_medium.getUnlocalizedName());
+		GameRegistry.registerBlock(certus_quartz_bud_small, certus_quartz_bud_small.getUnlocalizedName());
+		certus_quartz_block = block_crystal_3;
+		GameRegistry.registerBlock(certine_netherrack, certine_netherrack.getUnlocalizedName());
+		GameRegistry.registerBlock(frozen_netherrack, frozen_netherrack.getUnlocalizedName());
+		GameRegistry.registerBlock(certic_geyser, certic_geyser.getUnlocalizedName());
 
 		//Bedrock ore
 		register(ore_bedrock);
@@ -3133,6 +3154,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(block_boron, block_boron.getUnlocalizedName());
 		GameRegistry.registerBlock(block_insulator, block_insulator.getUnlocalizedName());
 		GameRegistry.registerBlock(block_fiberglass, block_fiberglass.getUnlocalizedName());
+		GameRegistry.registerBlock(block_fiberglass_certine, block_fiberglass_certine.getUnlocalizedName());
 		GameRegistry.registerBlock(block_asbestos, block_asbestos.getUnlocalizedName());
 		GameRegistry.registerBlock(block_trinitite, block_trinitite.getUnlocalizedName());
 		GameRegistry.registerBlock(block_waste, block_waste.getUnlocalizedName());
@@ -4188,6 +4210,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(volcanic_lava_block, volcanic_lava_block.getUnlocalizedName());
 		GameRegistry.registerBlock(rad_lava_block, rad_lava_block.getUnlocalizedName());
 		GameRegistry.registerBlock(sulfuric_acid_block, sulfuric_acid_block.getUnlocalizedName());
+		GameRegistry.registerBlock(uranus_tears_block, uranus_tears_block.getUnlocalizedName());
 		GameRegistry.registerBlock(mercury_block, mercury_block.getUnlocalizedName());
 		GameRegistry.registerBlock(slush_block, slush_block.getUnlocalizedName());
 		GameRegistry.registerBlock(bromine_block, bromine_block.getUnlocalizedName());
@@ -4218,6 +4241,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(gas_monoxide, gas_monoxide.getUnlocalizedName());
 		GameRegistry.registerBlock(gas_asbestos, gas_asbestos.getUnlocalizedName());
 		GameRegistry.registerBlock(gas_coal, gas_coal.getUnlocalizedName());
+		GameRegistry.registerBlock(gas_certus, gas_certus.getUnlocalizedName());
 		GameRegistry.registerBlock(gas_flammable, gas_flammable.getUnlocalizedName());
 		GameRegistry.registerBlock(gas_explosive, gas_explosive.getUnlocalizedName());
 		GameRegistry.registerBlock(air_vent, air_vent.getUnlocalizedName());

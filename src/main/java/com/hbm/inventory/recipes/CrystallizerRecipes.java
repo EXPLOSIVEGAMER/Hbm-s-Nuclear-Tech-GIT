@@ -113,6 +113,7 @@ public class CrystallizerRecipes extends SerializableRecipe {
 		registerRecipe(new OreDictStack(SRN.ingot()),					new CrystallizerRecipe(ModItems.crystal_schraranium, baseTime).prod(0.05F));
 
 		registerRecipe(new OreDictStack(KEY_SAND),				new CrystallizerRecipe(ModItems.ingot_fiberglass, utilityTime).prod(0.15F));
+		registerRecipe(new OreDictStack("crystalCertusQuartz"),	new CrystallizerRecipe(ModItems.ingot_fiberglass_certine, baseTime), new FluidStack(Fluids.SULFURIC_ACID, 500));
 		registerRecipe(new OreDictStack(SI.ingot()),			new CrystallizerRecipe(new ItemStack(Items.quartz, 2), utilityTime).prod(0.1F), new FluidStack(Fluids.OXYGEN, 250));
 		registerRecipe(new OreDictStack(REDSTONE.block()),		new CrystallizerRecipe(ModItems.ingot_mercury, baseTime).prod(0.25F));
 		registerRecipe(new OreDictStack(CINNABAR.crystal()),	new CrystallizerRecipe(new ItemStack(ModItems.ingot_mercury, 3), baseTime).prod(0.25F));
@@ -273,7 +274,6 @@ public class CrystallizerRecipes extends SerializableRecipe {
 		registerRecipe(new ComparableStack(ModBlocks.sand_mix, 1, EnumSandType.QUARTZ), new CrystallizerRecipe(new ItemStack(ModItems.ball_dynamite, 16), 20), new FluidStack(Fluids.NITROGLYCERIN, 1_000));
 		registerRecipe(new OreDictStack(NETHERQUARTZ.dust()), new CrystallizerRecipe(new ItemStack(ModItems.ball_dynamite, 4), 20), new FluidStack(Fluids.NITROGLYCERIN, 250));
 
-		/// COMPAT CERTUS QUARTZ ///
 		if (Compat.isModLoaded(Compat.MOD_AE2)) {
 			List<ItemStack> quartz = OreDictionary.getOres("crystalCertusQuartz");
 			if (quartz != null && !quartz.isEmpty()) {

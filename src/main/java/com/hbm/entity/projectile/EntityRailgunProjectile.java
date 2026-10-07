@@ -20,6 +20,9 @@ import java.util.List;
 
 public class EntityRailgunProjectile extends EntityThrowableNT implements IChunkLoader, IRadarDetectableNT {
 	public boolean sabotSeparation = false;
+	// runtime-only: the fluid this railgun shot is carrying (filled fluid sabot)
+	public com.hbm.inventory.fluid.FluidType fluidType = com.hbm.inventory.fluid.Fluids.NONE;
+	public short fluidFill = 0;
 
 	private ForgeChunkManager.Ticket loaderTicket;
 

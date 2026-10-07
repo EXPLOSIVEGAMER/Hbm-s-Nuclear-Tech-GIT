@@ -893,11 +893,9 @@ public class OreDictManager {
 		OreDictionary.registerOre("OsmiridiumCrystal", crystal_osmiridium);
 		OreDictionary.registerOre("CinnebarCrystal", crystal_cinnebar);
 		OreDictionary.registerOre("SaltCrystal", salt_cluster);
-		if (Compat.isModLoaded(Compat.MOD_AE2)) {
-			OreDictionary.registerOre("CertusQuartzCrystal", quartz_crystal);
-			OreDictionary.registerOre("dustCertusQuartz", powder_certus_quartz);
-			OreDictionary.registerOre("crystalCertusQuartz", quartz_crystal);
-		}
+		OreDictionary.registerOre("CertusQuartzCrystal", quartz_crystal);
+		OreDictionary.registerOre("dustCertusQuartz", powder_certus_quartz);
+		OreDictionary.registerOre("crystalCertusQuartz", quartz_crystal);
 
 		OreDictionary.registerOre("crystalCleaned", crystal_cleaned);
 		OreDictionary.registerOre("CleanedCrystal", crystal_cleaned);

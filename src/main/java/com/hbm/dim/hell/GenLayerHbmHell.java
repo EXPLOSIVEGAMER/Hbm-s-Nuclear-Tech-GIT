@@ -18,6 +18,8 @@ public abstract class GenLayerHbmHell extends GenLayer {
 		super(seed);
 	}
 
+	private static final int PADDING = 5;
+
 	public static GenLayer[] makeLayers(long seed, WorldType worldType) {
 		int biomeSize = 4;
 
@@ -29,6 +31,10 @@ public abstract class GenLayerHbmHell extends GenLayer {
 		layer = HellZoom.magnify(1000L, layer, 2);
 		for (int j = 0; j < biomeSize; j++) layer = new HellZoom(1000L + j, layer);
 		GenLayerHbmHell voronoi = new HellVoronoiZoom(10L, layer);
+
+		// buffer of plain hell around the caverns so other biomes/features can't run into them
+		layer = new HellPadding(50L, layer, PADDING);		voronoi = new HellPadding(50L, voronoi, PADDING);
+
 		layer.initWorldGenSeed(seed);
 		voronoi.initWorldGenSeed(seed);
 
@@ -286,8 +292,49 @@ public abstract class GenLayerHbmHell extends GenLayer {
 		}
 	}
 
+	private static class HellPadding extends GenLayerHbmHell {
+		private final int radius;
+
+		public HellPadding(long seed, GenLayer parent, int radius) {
+			super(seed);
+			this.parent = parent;
+			this.radius = radius;
+		}
+
+		@Override
+		public int[] getInts(int x, int z, int w, int h) {
+			if(BiomeGenCertineCaverns.certineCaverns == null) return this.parent.getInts(x, z, w, h);
+
+			int r = this.radius;
+			int sw = w + r * 2;
+			int[] src = this.parent.getInts(x - r, z - r, sw, h + r * 2);
+			int certine = BiomeGenCertineCaverns.certineCaverns.biomeID;
+			int hell = BiomeGenBase.hell.biomeID;
+
+			int[] result = new int[w * h];
+			for(int i = 0; i < w; i++) {
+				for(int j = 0; j < h; j++) {
+					int id = src[(i + r) + (j + r) * sw];
+
+					if(id == certine) {
+						boolean edge = false;
+						for(int dx = -r; dx <= r && !edge; dx++)
+							for(int dz = -r; dz <= r && !edge; dz++)
+								if(src[(i + r + dx) + (j + r + dz) * sw] != certine)
+									edge = true;
+						if(edge) id = hell;
+					}
+
+					result[i + j * w] = id;
+				}
+			}
+			return result;
+		}
+	}
+
 	private static class HellBiomes extends GenLayerHbmHell {
 		private List<BiomeEntry> allowedBiomes;
+		private int totalWeight;
 
 		public HellBiomes(long seed, GenLayer parent) {
 			super(seed);
@@ -295,16 +342,15 @@ public abstract class GenLayerHbmHell extends GenLayer {
 			this.allowedBiomes = new ArrayList<>();
 			this.allowedBiomes.add(new BiomeEntry(BiomeGenBase.hell, 10));
 			this.allowedBiomes.addAll(ModBiomes.netherBiomes);
+			this.totalWeight = WeightedRandom.getTotalWeight(allowedBiomes);
 		}
 
 		@Override
 		public int[] getInts(int x, int z, int w, int h) {
-			int[] parentVals = this.parent.getInts(x, z, w, h);
 			int[] result = IntCache.getIntCache(w * h);
 			for (int i = 0; i < w * h; i++) {
 				this.initChunkSeed(x + (i % w), z + (i / w));
-				int totalWeight = WeightedRandom.getTotalWeight(allowedBiomes);
-				result[i] = ((BiomeEntry) WeightedRandom.getItem(allowedBiomes, this.nextInt(totalWeight))).biome.biomeID;
+				result[i] = ((BiomeEntry) WeightedRandom.getItem(allowedBiomes, this.nextInt(this.totalWeight))).biome.biomeID;
 			}
 			return result;
 		}

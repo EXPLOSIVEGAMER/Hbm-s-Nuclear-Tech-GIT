@@ -46,6 +46,15 @@ public class TooltipRenderer {
 		}
 	}
 
+	public static ItemStack peek() {
+		return stack;
+	}
+
+	public static void clear() {
+		stack = null;
+		tooltip = null;
+	}
+
 	public static void setPending(ItemStack item, List<String> pending) {
 		stack = item;
 		tooltip = pending;
@@ -61,8 +70,10 @@ public class TooltipRenderer {
 				: hoveringBounds(lines, mouseX, mouseY, font, guiWidth, guiHeight);
 
 		// :catsmile:
-		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_LINE_BIT | GL11.GL_CURRENT_BIT);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glLineWidth(2F);
 
 		ItemStack item = stack;
 		ItemStack disk = item.getItem() == ModItems.floppy_disk ? item : null;

@@ -122,7 +122,7 @@ public class GUISILEX extends GuiInfoContainer {
 	
 	private void drawLine(float width, int color, double x1, double y1, double x2, double y2) {
 		
-		GL11.glPushMatrix();
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_LINE_BIT | GL11.GL_CURRENT_BIT);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glLineWidth(width);
@@ -135,7 +135,6 @@ public class GUISILEX extends GuiInfoContainer {
 		tessellator.addVertex(guiLeft + x2, guiTop + y2, this.zLevel);
 		tessellator.draw();
 		
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glPopMatrix();
+		GL11.glPopAttrib();
 	}
 }

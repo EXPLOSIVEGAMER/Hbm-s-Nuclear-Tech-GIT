@@ -802,7 +802,22 @@ public class ModEventHandlerClient {
 	@SubscribeEvent
 	public void drawScreenPost(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Post event) {
 		boolean nei = Loader.isModLoaded("NotEnoughItems") && event.gui instanceof GuiContainer;
-		com.hbm.render.util.TooltipRenderer.renderPending(Minecraft.getMinecraft().fontRenderer, event.gui.width, event.gui.height, event.mouseX, event.mouseY, 300D, nei);
+
+		ItemStack pending = com.hbm.render.util.TooltipRenderer.peek();
+		if(pending == null) return;
+
+		// The graph/helix stash is also set by ItemTooltipEvent calls that don't produce a real
+		// tooltip (NEI panel reads, dragged-stack reads). Only paint the pending graph when the
+		// stashed stack still matches the stack actually under the player's cursor; otherwise the
+		// last stashed fuel tooltip gets blitted into the inventory for a single frame.
+		ItemStack hovered = getMouseOverStack();
+		boolean valid = hovered != null && hovered.getItem() == pending.getItem() && hovered.getItemDamage() == pending.getItemDamage();
+
+		if(valid) {
+			com.hbm.render.util.TooltipRenderer.renderPending(Minecraft.getMinecraft().fontRenderer, event.gui.width, event.gui.height, event.mouseX, event.mouseY, 300D, nei);
+		} else {
+			com.hbm.render.util.TooltipRenderer.clear();
+		}
 	}
 
 	@SubscribeEvent

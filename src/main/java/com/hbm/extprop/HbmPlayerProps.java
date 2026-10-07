@@ -32,6 +32,8 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 	public boolean enableHUD = true;
 	public boolean enableBackpack = true;
 	public boolean enableMagnet = true;
+	public int jetpackMode = 0;
+	public int grabbedEntityId = -1;
 
 	/** Keybind tracking */
 	private boolean[] keysPressed = new boolean[EnumKeybind.values().length];
@@ -105,6 +107,17 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 		return this.enableBackpack && getKeyPressed(EnumKeybind.JETPACK);
 	}
 
+	public void toggleJetpack() {
+		this.enableBackpack = !this.enableBackpack;
+
+		if(player instanceof EntityPlayerMP) {
+			if(this.enableBackpack)
+				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(EnumChatFormatting.GREEN + "Jetpack ON", MainRegistry.proxy.ID_JETPACK, 1000), (EntityPlayerMP) player);
+			else
+				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(EnumChatFormatting.RED + "Jetpack OFF", MainRegistry.proxy.ID_JETPACK, 1000), (EntityPlayerMP) player);
+		}
+	}
+
 	public boolean isMagnetActive(){
 		return this.enableMagnet;
 	}
@@ -116,12 +129,7 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 			if(key == EnumKeybind.TOGGLE_JETPACK) {
 
 				if(!player.worldObj.isRemote) {
-					this.enableBackpack = !this.enableBackpack;
-
-					if(this.enableBackpack)
-						PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(EnumChatFormatting.GREEN + "Jetpack ON", MainRegistry.proxy.ID_JETPACK, 1000), (EntityPlayerMP) player);
-					else
-						PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(EnumChatFormatting.RED + "Jetpack OFF", MainRegistry.proxy.ID_JETPACK, 1000), (EntityPlayerMP) player);
+					this.toggleJetpack();
 				}
 			}
 			if (key == EnumKeybind.TOGGLE_MAGNET){
@@ -265,6 +273,8 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 		buf.writeBoolean(this.isOnLadder);
 		buf.writeBoolean(this.enableMagnet);
 		buf.writeInt(this.symbol);
+		buf.writeInt(this.jetpackMode);
+		buf.writeInt(this.grabbedEntityId);
 	}
 
 	public void deserialize(ByteBuf buf) {
@@ -277,6 +287,8 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 			this.isOnLadder = buf.readBoolean();
 			this.enableMagnet = buf.readBoolean();
 			if(buf.readableBytes() >= 4) this.symbol = buf.readInt();
+			if(buf.readableBytes() >= 4) this.jetpackMode = buf.readInt();
+			if(buf.readableBytes() >= 4) this.grabbedEntityId = buf.readInt();
 		}
 	}
 

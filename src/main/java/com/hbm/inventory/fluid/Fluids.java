@@ -290,6 +290,12 @@ public class Fluids {
 	public static FluidType CHEVREUL_SALT;
 	public static FluidType DIALYSATE;
 	public static FluidType DEW_OF_THE_GARDEN;
+	public static FluidType VITREOUS_VAPOR;
+	public static FluidType CERTUS_SUSPENSION;
+	public static FluidType URANUS_TEARS;
+	public static FluidType FERROFLUID;
+	public static FluidType CERTIC_VAPORS;
+	public static FluidType CERTUS_GAS;
 	public static FluidType ARGENT_BLOAT_PUS;
 	public static FluidType BLOAT_PUS;
 	public static FluidType BLOATSPIRIT;
@@ -682,6 +688,12 @@ public class Fluids {
 		CHEVREUL_SALT =		new FluidType("CHEVREUL_SALT",		0x40A8A8, 0, 0, 0, EnumSymbol.NONE).addContainers(new CD_Canister(0x40A8A8)).addTraits(LIQUID);
 		DIALYSATE =			new FluidType("DIALYSATE",			0x90C8E8, 0, 0, 0, EnumSymbol.NONE).addContainers(new CD_Canister(0x90C8E8)).addTraits(LIQUID);
 		DEW_OF_THE_GARDEN = new FluidType("DEW_OF_THE_GARDEN",	0xF7F0C0, 4, 0, 4, EnumSymbol.NONE).addContainers(new CD_Canister(0xF7F0C0)).addTraits(LIQUID, new FT_Corrosive(30), new FT_Heavenly());
+		VITREOUS_VAPOR = new FluidType("VITREOUS_VAPOR", 0xBFC8D6, 1, 0, 0, EnumSymbol.NONE).setTemp(-200).addContainers(new CD_Gastank(0xBFC8D6, 0xE8EEF6)).addTraits(GASEOUS);
+		CERTUS_SUSPENSION = new FluidType("CERTUS_SUSPENSION", 0x9AA7BC, 3, 0, 1, EnumSymbol.NONE).setTemp(150).addContainers(new CD_Canister(0x9AA7BC)).addTraits(LIQUID);
+		URANUS_TEARS = new FluidType("URANUS_TEARS", 0x5FC8F0, 4, 0, 0, EnumSymbol.NONE).setTemp(-270).addContainers(new CD_Canister(0x5FC8F0)).addTraits(LIQUID, new FT_Coolable(VITREOUS_VAPOR, 1, 1, 300));
+		FERROFLUID = new FluidType("FERROFLUID", 0x2E2E3A, 1, 0, 0, EnumSymbol.NONE).addContainers(new CD_Canister(0x2E2E3A)).addTraits(LIQUID, VISCOUS);
+		CERTIC_VAPORS = new FluidType("CERTIC_VAPORS", 0xAEC2D8, 1, 0, 0, EnumSymbol.NONE).addContainers(new CD_Gastank(0xAEC2D8, 0xE8EEF6)).addTraits(GASEOUS);
+		CERTUS_GAS = new FluidType("CERTUS_GAS", 0xC8D4E0, 1, 0, 0, EnumSymbol.NONE).setTemp(20).addContainers(new CD_Gastank(0xC8D4E0, 0xE8EEF6)).addTraits(GASEOUS);
 		ARGENT_BLOAT_PUS =	new FluidType("ARGENT_BLOAT_PUS",	0xD8D8D8, 2, 0, 0, EnumSymbol.NONE).addContainers(new CD_Canister(0xD8D8D8)).addTraits(LIQUID, new FT_Toxin().addEntry(new FT_Toxin.ToxinDirectDamage(ModDamageSource.acid, 1F, 20, HazardClass.GAS_LUNG, false)), new FT_Hellish());
 		BLOAT_PUS =			new FluidType("BLOAT_PUS",			0x8FA63F, 3, 0, 0, EnumSymbol.NONE).addContainers(new CD_Canister(0x8FA63F)).addTraits(LIQUID, new FT_Toxin().addEntry(new FT_Toxin.ToxinDirectDamage(ModDamageSource.acid, 1F, 20, HazardClass.GAS_LUNG, false)));
 		BLOATSPIRIT =		new FluidType("BLOATSPIRIT",		0xE8E8FF, 1, 3, 1, EnumSymbol.NONE).addContainers(new CD_Gastank(0xE8E8FF, 0xFFFFFF)).addTraits(GASEOUS, new FT_Combustible(FuelGrade.AERO, 1_375_000), new FT_Hellish());
@@ -1011,6 +1023,12 @@ public class Fluids {
 		metaOrder.add(CHEVREUL_SALT);
 		metaOrder.add(DIALYSATE);
 		metaOrder.add(DEW_OF_THE_GARDEN);
+		metaOrder.add(VITREOUS_VAPOR);
+		metaOrder.add(CERTUS_SUSPENSION);
+		metaOrder.add(URANUS_TEARS);
+		metaOrder.add(FERROFLUID);
+		metaOrder.add(CERTIC_VAPORS);
+		metaOrder.add(CERTUS_GAS);
 		metaOrder.add(ARGENT_BLOAT_PUS);
 		metaOrder.add(BLOAT_PUS);
 		metaOrder.add(BLOATSPIRIT);
@@ -1148,6 +1166,7 @@ public class Fluids {
 		COOLANT_HOT.addTraits(new FT_Coolable(COOLANT, 1, 1, 300).setEff(CoolingType.HEATEXCHANGER, 1.0D));
 
 		PERFLUOROMETHYL_COLD.addTraits(new FT_Heatable().setEff(HeatingType.PA, 1.0D).addStep(300, 1, PERFLUOROMETHYL, 1));
+		VITREOUS_VAPOR.addTraits(new FT_Heatable().setEff(HeatingType.BOILER, 1.0D).setEff(HeatingType.HEATEXCHANGER, 1.0D).addStep(300, 1, CERTUS_SUSPENSION, 1));
 		PERFLUOROMETHYL.addTraits(new FT_Heatable().setEff(HeatingType.HEATEXCHANGER, 1.0D).setEff(HeatingType.PWR, 1.0D).setEff(HeatingType.ICF, 1.0D).addStep(300, 1, PERFLUOROMETHYL_HOT, 1));
 		PERFLUOROMETHYL_HOT.addTraits(new FT_Coolable(PERFLUOROMETHYL, 1, 1, 300).setEff(CoolingType.HEATEXCHANGER, 1.0D));
 

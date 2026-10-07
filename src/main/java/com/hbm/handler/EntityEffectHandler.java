@@ -160,6 +160,7 @@ public class EntityEffectHandler {
 		handleRadiationFX(entity);
 		handleDigamma(entity);
 		handleLungDisease(entity);
+		handleCertosis(entity);
 		handleOil(entity);
 		handlePollution(entity);
 		handleTemperature(entity);
@@ -504,6 +505,23 @@ public class EntityEffectHandler {
 
 	private static void handleBloodstream(EntityLivingBase entity) {
 		com.hbm.extprop.HbmBloodstreamProps.getData(entity).tick();
+	}
+
+	private static void handleCertosis(EntityLivingBase entity) {
+		if(entity.worldObj.isRemote) return;
+
+		int certosis = HbmLivingProps.getCertosis(entity);
+		if(certosis <= 0) return;
+
+		double ratio = certosis / (double) HbmLivingProps.maxCertosis;
+
+		if(entity.ticksExisted % 40 == 0) HbmLivingProps.setCertosis(entity, certosis - 1);
+
+		if(ratio > 0.25D && entity.ticksExisted % 40 == 0)
+			entity.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 80, (int) (ratio * 3)));
+
+		if(ratio > 0.5D && entity.ticksExisted % 60 == 0)
+			entity.attackEntityFrom(ModDamageSource.certosis, ratio > 0.75D ? 2F : 1F);
 	}
 
 	private static void handleLungDisease(EntityLivingBase entity) {

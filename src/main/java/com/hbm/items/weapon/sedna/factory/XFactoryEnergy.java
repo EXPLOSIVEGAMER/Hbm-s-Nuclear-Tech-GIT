@@ -58,6 +58,7 @@ public class XFactoryEnergy {
 	public static BulletConfig energy_tesla_ir_sub;
 
 	public static BulletConfig energy_las;
+	public static BulletConfig energy_las_certic;
 	public static BulletConfig energy_las_overcharge;
 	public static BulletConfig energy_las_ir;
 	public static BulletConfig energy_emerald;
@@ -164,6 +165,7 @@ public class XFactoryEnergy {
 				.setDamage(0.5F).setOnBeamImpact(BulletConfig.LAMBDA_STANDARD_BEAM_HIT);
 
 		energy_las = new BulletConfig().setItem(EnumAmmo.CAPACITOR).setCasing(new ItemStack(ModItems.ingot_polymer, 2), 4).setupDamageClass(DamageClass.LASER).setBeam().setSpread(0.0F).setLife(5).setRenderRotations(false).setOnBeamImpact(BulletConfig.LAMBDA_STANDARD_BEAM_HIT);
+		energy_las_certic = energy_las.clone();
 		energy_las_overcharge = new BulletConfig().setItem(EnumAmmo.CAPACITOR_OVERCHARGE).setCasing(new ItemStack(ModItems.ingot_polymer, 2), 4).setupDamageClass(DamageClass.LASER).setBeam().setSpread(0.0F).setLife(5).setRenderRotations(false).setDoesPenetrate(true).setOnBeamImpact(BulletConfig.LAMBDA_STANDARD_BEAM_HIT);
 		energy_las_ir = new BulletConfig().setItem(EnumAmmo.CAPACITOR_IR).setCasing(new ItemStack(ModItems.ingot_polymer, 2), 4).setupDamageClass(DamageClass.FIRE).setBeam().setSpread(0.0F).setLife(5).setRenderRotations(false).setOnBeamImpact(LAMBDA_IR_HIT);
 

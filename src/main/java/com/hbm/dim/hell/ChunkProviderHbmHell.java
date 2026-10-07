@@ -7,6 +7,7 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import java.util.List;
 import java.util.Random;
 
+import com.hbm.blocks.ModBlocks;
 import com.hbm.util.Compat;
 import com.hbm.world.WorldUtil;
 
@@ -118,8 +119,8 @@ public class ChunkProviderHbmHell implements IChunkProvider {
 		}
 	}
 
-	private void replaceBlocksForBiome(int cx, int cz, Block[] blocks, BiomeGenBase[] biomes) {
-		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cz, blocks, biomes);
+	private void replaceBlocksForBiome(int cx, int cz, Block[] blocks, byte[] metas, BiomeGenBase[] biomes) {
+		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cz, blocks, metas, biomes, this.worldObj);
 		MinecraftForge.EVENT_BUS.post(event);
 		if(event.getResult() == Event.Result.DENY) return;
 
@@ -135,6 +136,41 @@ public class ChunkProviderHbmHell implements IChunkProvider {
 				BiomeGenBase biome = biomes[x + z * 16];
 				Block topBlock = biome.topBlock;
 				Block fillerBlock = biome.fillerBlock;
+
+				if(biome == BiomeGenCertineCaverns.certineCaverns) {
+					int wx = cx * 16 + x;
+					int wz = cz * 16 + z;
+					int base = (x * 16 + z) * 128;
+
+					boolean capped = false;
+					for(int y = 127; y >= 0; y--) {
+						int idx = base + y;
+						Block here = blocks[idx];
+						if(here == Blocks.lava) {
+							if(capped) {
+								blocks[idx] = ModBlocks.uranus_tears_block;
+							} else {
+								blocks[idx] = Blocks.packed_ice;
+								capped = true;
+							}
+							continue;
+						}
+						if(here != Blocks.netherrack) continue;
+
+						double n = NetherBiomeHelper.noise3(wx * 0.12D, y * 0.16D, wz * 0.12D, 1337) * 0.6D
+								 + NetherBiomeHelper.noise3(wx * 0.29D, y * 0.38D, wz * 0.29D, 7331) * 0.4D;
+						if(n > 0.64D) {
+							blocks[idx] = Blocks.packed_ice;
+						} else if(n > 0.55D) {
+							blocks[idx] = Blocks.snow;
+						} else if(n > 0.32D) {
+							blocks[idx] = ModBlocks.certus_quartz_block;
+							metas[idx] = (byte) ModBlocks.CERTUS_META;
+						} else {
+							blocks[idx] = ModBlocks.frozen_netherrack;
+						}
+					}
+				}
 				byte topMeta = (byte) biome.field_150604_aj;
 				byte fillerMeta = (byte) biome.field_76754_C;
 
@@ -241,17 +277,19 @@ public class ChunkProviderHbmHell implements IChunkProvider {
 	public Chunk provideChunk(int cx, int cz) {
 		hellRNG.setSeed(cx * 341873128712L + cz * 132897987541L);
 		Block[] blocks = new Block[32768];
+		byte[] metas = new byte[32768];
 
 		this.generateNetherTerrain(cx, cz, blocks);
 
 		this.biomesForGeneration = this.worldObj.getWorldChunkManager()
 				.loadBlockGeneratorData(this.biomesForGeneration, cx * 16, cz * 16, 16, 16);
-		this.replaceBlocksForBiome(cx, cz, blocks, this.biomesForGeneration);
+		this.replaceBlocksForBiome(cx, cz, blocks, metas, this.biomesForGeneration);
 
 		this.netherCaveGenerator.func_151539_a(this, this.worldObj, cx, cz, blocks);
-		this.genNetherBridge.func_151539_a(this, this.worldObj, cx, cz, blocks);
+		if(this.worldObj.getWorldChunkManager().getBiomeGenAt(cx * 16 + 8, cz * 16 + 8) != BiomeGenCertineCaverns.certineCaverns)
+			this.genNetherBridge.func_151539_a(this, this.worldObj, cx, cz, blocks);
 
-		Chunk chunk = new Chunk(this.worldObj, blocks, cx, cz);
+		Chunk chunk = new Chunk(this.worldObj, blocks, metas, cx, cz);
 		BiomeGenBase[] biomes = this.worldObj.getWorldChunkManager()
 				.loadBlockGeneratorData(null, cx * 16, cz * 16, 16, 16);
 
@@ -295,6 +333,13 @@ public class ChunkProviderHbmHell implements IChunkProvider {
 		this.hellRNG.setSeed(cx * r1 + cz * r2 ^ this.worldObj.getSeed());
 
 		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(provider, worldObj, hellRNG, cx, cz, false));
+
+		if(biome == BiomeGenCertineCaverns.certineCaverns) {
+			biome.decorate(this.worldObj, this.hellRNG, x, z);
+			MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(provider, worldObj, hellRNG, cx, cz, false));
+			BlockFalling.fallInstantly = false;
+			return;
+		}
 
 		genNetherBridge.generateStructuresInChunk(worldObj, hellRNG, cx, cz);
 

@@ -84,6 +84,7 @@ public class SpaceConfig {
 
 	public static int thatmoBiome = 87;
 	public static int theNestBiome = 86;
+	public static int certineCavernsBiome = 84;
 
 	public static int pragueBiome = 85;
 
@@ -166,6 +167,7 @@ public class SpaceConfig {
 		tektoVinylIslandBiome = createConfigBiome(config, CATEGORY_BIOME, "16.31_tektoVinylSandsBiome", "Tekto Vinyl Sands Biome ID", tektoVinylIslandBiome + defaultBiomeOffset);
 		thatmoBiome = createConfigBiome(config, CATEGORY_BIOME, "16.32_thatmoBiome", "Thatmo Biome ID", thatmoBiome + defaultBiomeOffset);
 		theNestBiome = createConfigBiome(config, CATEGORY_BIOME, "16.33_theNestBiome", "The Nest Biome ID", theNestBiome + defaultBiomeOffset);
+		certineCavernsBiome = createConfigBiome(config, CATEGORY_BIOME, "16.35_certineCavernsBiome", "Certine Caverns Biome ID", certineCavernsBiome + defaultBiomeOffset);
 		pragueBiome = createConfigBiome(config, CATEGORY_BIOME, "16.33_pragueBiome", "Prague Biome ID", pragueBiome + defaultBiomeOffset);
 		drossBiome = createConfigBiome(config, CATEGORY_BIOME, "16.34_drossBiome", "Dross Biome ID", drossBiome + defaultBiomeOffset);
 	}

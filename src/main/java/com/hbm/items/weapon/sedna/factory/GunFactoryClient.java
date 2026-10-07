@@ -233,6 +233,7 @@ public class GunFactoryClient {
 		setRendererBulkBeam(LegoClient.RENDER_TAU, tau_uranium);
 		setRendererBulkBeam(LegoClient.RENDER_TAU_CHARGE, tau_uranium_charge);
 		setRendererBulkBeam(LegoClient.RENDER_LASER_RED, energy_las, energy_las_overcharge, energy_las_ir);
+		energy_las_certic.setRendererBeam(LegoClient.RENDER_LASER_CERTUS);
 		setRendererBulkBeam(LegoClient.RENDER_LASER_PURPLE, energy_lacunae, energy_lacunae_overcharge, energy_lacunae_ir);
 		setRendererBulkBeam(LegoClient.RENDER_LASER_EMERALD, energy_emerald, energy_emerald_overcharge, energy_emerald_ir);
 		

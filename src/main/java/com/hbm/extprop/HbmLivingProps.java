@@ -50,6 +50,8 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 	public static final int maxAsbestos = 60 * 60 * 20;
 	private int blacklung;
 	public static final int maxBlacklung = 2 * 60 * 60 * 20;
+	private int certosis;
+	public static final int maxCertosis = 60 * 60 * 20;
 	private float radEnv;
 	private float radBuf;
 	private int bombTimer;
@@ -308,6 +310,27 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 		}
 	}
 
+	public static int getCertosis(EntityLivingBase entity) {
+		return getData(entity).certosis;
+	}
+
+	public static void setCertosis(EntityLivingBase entity, int certosis) {
+		getData(entity).certosis = certosis;
+
+		if(certosis >= maxCertosis) {
+			getData(entity).certosis = 0;
+			entity.attackEntityFrom(ModDamageSource.certosis, 1000);
+		}
+	}
+
+	public static void incrementCertosis(EntityLivingBase entity, int certosis) {
+		setCertosis(entity, getCertosis(entity) + certosis);
+
+		if(entity instanceof EntityPlayerMP) {
+			PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation("info.certosis").color(EnumChatFormatting.AQUA).flush(), MainRegistry.proxy.ID_GAS_HAZARD, 3000), (EntityPlayerMP) entity);
+		}
+	}
+
 	/// TIME BOMB ///
 	public static int getTimer(EntityLivingBase entity) {
 		return getData(entity).bombTimer;
@@ -363,6 +386,7 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 		buf.writeInt(asbestos);
 		buf.writeInt(bombTimer);
 		buf.writeInt(blacklung);
+		buf.writeInt(certosis);
 		buf.writeInt(oil);
 		buf.writeInt(oxygen);
 		buf.writeBoolean(gravity);
@@ -384,6 +408,7 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 			asbestos = buf.readInt();
 			bombTimer = buf.readInt();
 			blacklung = buf.readInt();
+			certosis = buf.readInt();
 			oil = buf.readInt();
 			oxygen = buf.readInt();
 			gravity = buf.readBoolean();
@@ -410,6 +435,7 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 		props.setInteger("hfr_asbestos", asbestos);
 		props.setInteger("hfr_bomb", bombTimer);
 		props.setInteger("hfr_blacklung", blacklung);
+		props.setInteger("hfr_certosis", certosis);
 		props.setInteger("hfr_oil", oil);
 		props.setInteger("hfr_oxygen", oxygen);
 		props.setFloat("hfr_activation", activation);
@@ -449,6 +475,7 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 			asbestos = props.getInteger("hfr_asbestos");
 			bombTimer = props.getInteger("hfr_bomb");
 			blacklung = props.getInteger("hfr_blacklung");
+			certosis = props.getInteger("hfr_certosis");
 			oil = props.getInteger("hfr_oil");
 			activation = props.getFloat("hfr_activation");
 			oxygen = props.getInteger("hfr_oxygen");

@@ -28,7 +28,7 @@ import net.minecraft.util.*;
 
 import java.util.List;
 
-public class ItemAmmoRailgun extends Item {
+public class ItemAmmoRailgun extends Item implements IFillableItem {
 
 	public static RailgunSabot[] itemTypes = new RailgunSabot[ /* >>> */ 6 /* <<< */ ];
 	public static final int TUNGSTEN = 0;
@@ -81,7 +81,6 @@ public class ItemAmmoRailgun extends Item {
 				break;
 			case FLUID:
 				list.add(y + "Fluid filled APDSFS");
-				list.add((BobMathUtil.getBlink() ? r : y) + ">> Work In Progress! <<");
 				FluidSabot fluidSabot = (FluidSabot) itemTypes[FLUID];
 				list.add(y + "> " + fluidSabot.getType(stack).getLocalizedName());
 				list.add(y + "> " + fluidSabot.getFill(stack) + "/" + fluidSabot.getCapacity(stack) + "mB");
@@ -330,16 +329,56 @@ public class ItemAmmoRailgun extends Item {
 			public void onImpact(EntityRailgunProjectile sabot, MovingObjectPosition mop) {
 				ExplosionCreator.composeEffect(sabot.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10, 2F, 0.5F, 25F, 5, 0, 20, 0.75F, 1F, -2F, 150);
 
-				if (this.type.isDispersable() && this.fill > 0) {
+				if(sabot.fluidType.isDispersable() && sabot.fluidFill > 0) {
 					EntityMist mist = new EntityMist(sabot.worldObj);
-					mist.setType(this.type);
+					mist.setType(sabot.fluidType);
 					mist.setPosition(sabot.posX, sabot.posY, sabot.posZ);
 					mist.setArea(10, 5);
-					mist.setDuration(this.fill * 200 / this.maxFill);
+					mist.setDuration(sabot.fluidFill * 200 / this.maxFill);
 					sabot.worldObj.spawnEntityInWorld(mist);
 					sabot.setDead();
 				}
 			}
 		};
+	}
+
+	private FluidSabot fluidSabot(ItemStack stack) {
+		return Math.abs(stack.getItemDamage()) == FLUID && itemTypes[FLUID] instanceof FluidSabot ? (FluidSabot) itemTypes[FLUID] : null;
+	}
+
+	@Override
+	public boolean acceptsFluid(FluidType type, ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot != null && sabot.acceptsFluid(type, stack);
+	}
+
+	@Override
+	public int tryFill(FluidType type, int amount, ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot == null ? amount : sabot.tryFill(type, amount, stack);
+	}
+
+	@Override
+	public boolean providesFluid(FluidType type, ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot != null && sabot.providesFluid(type, stack);
+	}
+
+	@Override
+	public int tryEmpty(FluidType type, int amount, ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot == null ? 0 : sabot.tryEmpty(type, amount, stack);
+	}
+
+	@Override
+	public FluidType getFirstFluidType(ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot == null ? Fluids.NONE : sabot.getFirstFluidType(stack);
+	}
+
+	@Override
+	public int getFill(ItemStack stack) {
+		FluidSabot sabot = fluidSabot(stack);
+		return sabot == null ? 0 : sabot.getFill(stack);
 	}
 }

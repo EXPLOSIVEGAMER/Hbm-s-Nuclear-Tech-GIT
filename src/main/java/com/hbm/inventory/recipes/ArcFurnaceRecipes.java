@@ -58,11 +58,14 @@ public class ArcFurnaceRecipes extends SerializableRecipe {
 		register(new OreDictStack(QUARTZ.block()),		new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 12))	.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.NUGGET.q(12))));
 		register(new OreDictStack(FIBER.ingot()),		new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 4))		.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(1, 2))));
 		register(new OreDictStack(FIBER.block()),		new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 40))	.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(9, 2))));
+		register(new ComparableStack(ModItems.ingot_fiberglass_certine),	new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 16))	.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(2))));
+		register(new ComparableStack(ModBlocks.block_fiberglass_certine),	new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 160))	.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(18))));
 		register(new OreDictStack(ASBESTOS.ingot()),	new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 4))		.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(1, 2))));
 		register(new OreDictStack(ASBESTOS.dust()),		new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 4))		.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(1, 2))));
 		register(new OreDictStack(ASBESTOS.block()),	new ArcFurnaceRecipe().solid(new ItemStack(ModItems.nugget_silicon, 40))	.fluid(new MaterialStack(Mats.MAT_SILICON, MaterialShapes.INGOT.q(9, 2))));
 
 		register(new ComparableStack(ModBlocks.sand_mix, 1, EnumSandType.QUARTZ), new ArcFurnaceRecipe().solid(new ItemStack(ModBlocks.glass_quartz)));
+		register(new ComparableStack(ModItems.powder_certus_quartz), new ArcFurnaceRecipe().solid(new ItemStack(ModBlocks.glass_quartz, 2)));
 		register(new OreDictStack(BORAX.dust()), new ArcFurnaceRecipe().solid(new ItemStack(ModItems.powder_boron_tiny, 3)).fluid(new MaterialStack(Mats.MAT_BORON, MaterialShapes.NUGGET.q(3))));
 
 		for(CelestialBedrockOreType type : CelestialBedrockOre.getAllTypes()) {

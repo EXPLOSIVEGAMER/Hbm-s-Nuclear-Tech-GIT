@@ -1,6 +1,7 @@
 package com.hbm.tileentity.turret;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
+import api.hbm.fluidmk2.IFillableItem;
 import api.hbm.redstoneoverradio.IRORInteractive;
 import api.hbm.redstoneoverradio.IRORValueProvider;
 import com.hbm.entity.projectile.EntityBulletBeamBase;
@@ -254,7 +255,8 @@ public class TileEntityTurretRailgun extends TileEntityMachineBase implements IG
 				audio = sound;
 				audio.startSound();
 			} else if(!audio.isPlaying()) {
-				audio = rebootAudio(audio);
+				audio = sound;
+				audio.startSound();
 			}
 			audio.keepAlive();
 			audio.updatePitch(pitch);
@@ -476,6 +478,12 @@ public class TileEntityTurretRailgun extends TileEntityMachineBase implements IG
 		uglyAssProj.setLocationAndAngles(proj.posX, proj.posY, proj.posZ, 0F, 0F);
 		uglyAssProj.setThrowableHeading(bulletVector.xCoord, bulletVector.yCoord, bulletVector.zCoord, velocity/20F, 0F);
 		uglyAssProj.setType(projectile.getItemDamage());
+		if (projectile.getItemDamage() == ItemAmmoRailgun.FLUID) {
+			// feed the loaded sabot's NBT fluid into the projectile so the fluid sabot payload
+			// actually spawns meta consistent with what was loaded, instead of the shared instance fields
+			uglyAssProj.fluidType = IFillableItem.getFluidType(projectile);
+			uglyAssProj.fluidFill = (short) IFillableItem.getFluidFill(projectile);
+		}
 
 		worldObj.spawnEntityInWorld(proj); // first delete, then spawn the actual bullet
 		worldObj.spawnEntityInWorld(uglyAssProj);

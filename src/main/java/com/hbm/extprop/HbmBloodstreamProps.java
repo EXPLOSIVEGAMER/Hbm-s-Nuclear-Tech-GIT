@@ -208,6 +208,31 @@ public class HbmBloodstreamProps implements IExtendedEntityProperties {
 	}
 
 
+	public int clearPathogens() {
+		int removed = 0;
+		Iterator<BloodEntry> iter = entries.iterator();
+		while(iter.hasNext()) {
+			if(iter.next().frameId == null) continue;
+			iter.remove();
+			removed++;
+		}
+
+		if(removed > 0) {
+			for(HbmPotion symptom : symptoms()) entity.removePotionEffect(symptom.id);
+		}
+
+		return removed;
+	}
+
+	private static HbmPotion[] symptoms() {
+		return new HbmPotion[] {
+				HbmPotion.symptomRash, HbmPotion.symptomCough, HbmPotion.symptomSneeze, HbmPotion.symptomFever,
+				HbmPotion.symptomVomit, HbmPotion.symptomSchizophrenia, HbmPotion.symptomHemorrhage, HbmPotion.symptomParalysis,
+				HbmPotion.symptomSeizure, HbmPotion.symptomSeptic, HbmPotion.symptomComa, HbmPotion.symptomAortic,
+				HbmPotion.symptomNecrosis, HbmPotion.symptomCardiac
+		};
+	}
+
 	public int getCoughBoost() {
 		return coughBoost;
 	}

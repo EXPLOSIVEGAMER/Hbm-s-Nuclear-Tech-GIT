@@ -1,12 +1,17 @@
 package com.hbm.blocks.machine;
 
+import java.util.List;
+
+import com.hbm.blocks.ITooltipProvider;
 import com.hbm.tileentity.machine.TileEntityIncubator;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockIncubator extends BlockMachineBase {
+public class BlockIncubator extends BlockMachineBase implements ITooltipProvider {
 
 	public BlockIncubator() {
 		super(Material.iron, 0);
@@ -16,5 +21,10 @@ public class BlockIncubator extends BlockMachineBase {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityIncubator();
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
+		this.addStandardInfo(stack, player, list, ext);
 	}
 }

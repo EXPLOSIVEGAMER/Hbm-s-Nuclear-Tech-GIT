@@ -28,6 +28,7 @@ import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.CelestialTeleporter;
 import com.hbm.dim.SolarSystemWorldSavedData;
+import com.hbm.dim.hell.BiomeGenCertineCaverns;
 import com.hbm.dim.WorldGeneratorCelestial;
 import com.hbm.dim.WorldProviderCelestial;
 import com.hbm.dim.WorldProviderEarth;
@@ -42,6 +43,7 @@ import com.hbm.dim.trait.CelestialBodyTrait;
 import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.entity.mob.EntityCreeperTainted;
 import com.hbm.entity.mob.EntityCyberCrab;
+import com.hbm.entity.mob.EntityCertcloud;
 import com.hbm.entity.mob.EntityDrossDrone;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.entity.projectile.EntityBurningFOEQ;
@@ -906,6 +908,23 @@ public class ModEventHandler {
 				}
 			}
 
+			if(world.provider.dimensionId == -1 && time % 40 == 0 && !EntityCertcloud.isOverCap(world)) {
+				EntityPlayer p = world.playerEntities.isEmpty() ? null : (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+				if(p != null) {
+					for(int attempt = 0; attempt < 4; attempt++) {
+						int sx = (int) p.posX + world.rand.nextInt(48) - 24;
+						int sz = (int) p.posZ + world.rand.nextInt(48) - 24;
+						int sy = 40 + world.rand.nextInt(50);
+						if(world.getBiomeGenForCoords(sx, sz) != BiomeGenCertineCaverns.certineCaverns) continue;
+						if(!world.isAirBlock(sx, sy, sz) || !world.isAirBlock(sx, sy + 1, sz)) continue;
+						EntityCertcloud cloud = new EntityCertcloud(world);
+						cloud.setLocationAndAngles(sx + 0.5D, sy, sz + 0.5D, world.rand.nextFloat() * 360F, 0F);
+						if(cloud.getCanSpawnHere()) world.spawnEntityInWorld(cloud);
+						break;
+					}
+				}
+			}
+
 			if(reference != null) {
 				for(Object player : world.playerEntities) {
 					if(((EntityPlayer) player).ridingEntity != null && time % (1 * 60 * 20) == 0) {
@@ -1122,6 +1141,9 @@ public class ModEventHandler {
 	public void onEntityDamaged(LivingHurtEvent event) {
 
 		EntityLivingBase e = event.entityLiving;
+
+		if(e.isPotionActive(HbmPotion.damagedSkin))
+			event.ammount *= 3F;
 
 		if((e.isPotionActive(HbmPotion.turkishRage) || e.isPotionActive(HbmPotion.ganja)) && "lightningBolt".equals(event.source.getDamageType()))
 			event.ammount = 0;

@@ -79,7 +79,7 @@ public class CraftingManager {
 		GameRegistry.addRecipe(new GrenadeCraftingHandler());
 
 		String[] crystalMats = { "Coal", "Iron", "Gold", "Redstone", "Lapis", "Diamond", "Uranium", "Thorium", "Plutonium", "Titanium", "Sulfur", "Niter", "Copper", "Tungsten", "Aluminium", "Fluorite", "Beryllium", "Lead", "Schraranium", "Schrabidium", "Rare", "Phosphorus", "Trixite", "Lithium", "Cobalt", "Mineral", "Nickel", "Niobium", "Zinc", "Osmiridium", "Cinnebar", "Starmetal", "Salt", "CertusQuartz" };
-		Item[] crystalItems = { ModItems.crystal_coal, ModItems.crystal_iron, ModItems.crystal_gold, ModItems.crystal_redstone, ModItems.crystal_lapis, ModItems.crystal_diamond, ModItems.crystal_uranium, ModItems.crystal_thorium, ModItems.crystal_plutonium, ModItems.crystal_titanium, ModItems.crystal_sulfur, ModItems.crystal_niter, ModItems.crystal_copper, ModItems.crystal_tungsten, ModItems.crystal_aluminium, ModItems.crystal_fluorite, ModItems.crystal_beryllium, ModItems.crystal_lead, ModItems.crystal_schraranium, ModItems.crystal_schrabidium, ModItems.crystal_rare, ModItems.crystal_phosphorus, ModItems.crystal_trixite, ModItems.crystal_lithium, ModItems.crystal_cobalt, ModItems.crystal_mineral, ModItems.crystal_nickel, ModItems.crystal_niobium, ModItems.crystal_zinc, ModItems.crystal_osmiridium, ModItems.crystal_cinnebar, ModItems.crystal_starmetal, Item.getItemFromBlock(ModBlocks.salt_cluster), Compat.isModLoaded(Compat.MOD_AE2) ? ModItems.quartz_crystal : null };
+		Item[] crystalItems = { ModItems.crystal_coal, ModItems.crystal_iron, ModItems.crystal_gold, ModItems.crystal_redstone, ModItems.crystal_lapis, ModItems.crystal_diamond, ModItems.crystal_uranium, ModItems.crystal_thorium, ModItems.crystal_plutonium, ModItems.crystal_titanium, ModItems.crystal_sulfur, ModItems.crystal_niter, ModItems.crystal_copper, ModItems.crystal_tungsten, ModItems.crystal_aluminium, ModItems.crystal_fluorite, ModItems.crystal_beryllium, ModItems.crystal_lead, ModItems.crystal_schraranium, ModItems.crystal_schrabidium, ModItems.crystal_rare, ModItems.crystal_phosphorus, ModItems.crystal_trixite, ModItems.crystal_lithium, ModItems.crystal_cobalt, ModItems.crystal_mineral, ModItems.crystal_nickel, ModItems.crystal_niobium, ModItems.crystal_zinc, ModItems.crystal_osmiridium, ModItems.crystal_cinnebar, ModItems.crystal_starmetal, Item.getItemFromBlock(ModBlocks.salt_cluster), ModItems.quartz_crystal };
 
 		for(int i = 0; i < crystalMats.length; i++) {
 			if (crystalItems[i] == null) continue;
@@ -137,6 +137,8 @@ public class CraftingManager {
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 8), new Object[] { "DD", 'D', ANY_PLASTIC.ingot() });
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 8), new Object[] { "DD", 'D', ANY_RUBBER.ingot() });
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 16), new Object[] { "DD", 'D', FIBER.ingot()});
+		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 16), new Object[] { "DD", 'D', ModItems.ingot_fiberglass_certine });
+		addRecipeAuto(new ItemStack(ModBlocks.block_fiberglass_certine, 1), new Object[] { "DDD", "DDD", "DDD", 'D', ModItems.ingot_fiberglass_certine });
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 16), new Object[] { "DD", 'D', ASBESTOS.ingot()});
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 4), new Object[] { "SWS", 'S', Items.string, 'W', Blocks.wool });
 		addRecipeAuto(new ItemStack(ModItems.plate_polymer, 4), new Object[] { "BB", 'B', "ingotBrick" });

@@ -27,6 +27,7 @@ import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.util.i18n.I18nUtil;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
+import api.hbm.fluidmk2.IFillableItem;
 import api.hbm.fluidmk2.IFluidStandardTransceiverMK2;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -152,6 +153,28 @@ public class TileEntityIncubator extends TileEntityMachineBase implements IEnerg
 		return stack.hasTagCompound() && stack.stackTagCompound.hasKey(ItemMedicalSyringe.KEY_OWNER_UUID);
 	}
 
+	private static boolean isEmptySyringe(ItemStack stack) {
+		if(stack == null || stack.getItem() != ModItems.medical_syringe) return false;
+		if(isSyringe(stack)) return false;
+		return IFillableItem.getFluidFill(stack) == 0;
+	}
+
+	private ItemStack getEmptySyringe() {
+		for(int i = 0; i <= 2; i++) {
+			if(isEmptySyringe(slots[i])) return slots[i];
+		}
+		return null;
+	}
+
+	private void consumeEmptySyringe() {
+		for(int i = 0; i <= 2; i++) {
+			if(isEmptySyringe(slots[i])) {
+				slots[i] = null;
+				break;
+			}
+		}
+	}
+
 	private DiseaseDefinition getDef(ItemStack vial) {
 		String frame = ItemVial.readFrame(vial);
 		if(frame == null) return null;
@@ -190,7 +213,7 @@ public class TileEntityIncubator extends TileEntityMachineBase implements IEnerg
 		boolean syringe = getSyringe() != null;
 		if(getVials().isEmpty() && !syringe) return false;
 
-		if(syringe) return slots[3] == null;
+		if(syringe) return slots[3] == null && getEmptySyringe() != null;
 
 		if(slots[3] != null) {
 			if(slots[3].getItem() != ModItems.vial) return false;
@@ -259,6 +282,8 @@ public class TileEntityIncubator extends TileEntityMachineBase implements IEnerg
 				}
 			}
 		}
+
+		if(isSyringe(output)) consumeEmptySyringe();
 
 		this.markDirty();
 	}

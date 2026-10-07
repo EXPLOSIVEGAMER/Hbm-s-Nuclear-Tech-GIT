@@ -17,7 +17,7 @@ public class IncubatorRecipes extends GenericRecipes<GenericRecipe> {
 
 	public static final IncubatorRecipes INSTANCE = new IncubatorRecipes();
 
-	@Override public int inputItemLimit() { return 1; }
+	@Override public int inputItemLimit() { return 2; }
 	@Override public int inputFluidLimit() { return 1; }
 	@Override public int outputItemLimit() { return 1; }
 	@Override public int outputFluidLimit() { return 1; }
@@ -40,7 +40,7 @@ public class IncubatorRecipes extends GenericRecipes<GenericRecipe> {
 		ItemStack syringe = sampleSyringe();
 
 		this.register(new GenericRecipe("incubator.syringe").setup(TileEntityIncubator.SYRINGE_TIME, 100).setNamed()
-				.inputItems(new NBTStack(syringe))
+				.inputItems(new NBTStack(syringe), new NBTStack(new ItemStack(ModItems.medical_syringe)))
 				.inputFluids(new FluidStack(Fluids.PERFLUOROMETHYL_COLD, 100))
 				.outputItems(syringe)
 				.outputFluids(new FluidStack(Fluids.PERFLUOROMETHYL, 100))

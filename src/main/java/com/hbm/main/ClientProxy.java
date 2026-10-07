@@ -44,10 +44,19 @@ import com.hbm.entity.train.EntityRailCarBase.BoundingBoxDummyEntity;
 import com.hbm.entity.train.EntityRailCarRidable.SeatDummyEntity;
 import com.hbm.entity.train.*;
 import com.hbm.handler.CasingEjector;
+import com.hbm.handler.FreeCursorHandler;
+import com.hbm.handler.GravitatorHandler;
 import com.hbm.handler.HbmKeybinds;
 import com.hbm.handler.HbmKeybinds.EnumKeybind;
 import com.hbm.handler.ImpactWorldHandler;
 import com.hbm.handler.imc.IMCHandlerNHNEI;
+import com.hbm.handler.overlay.FluidDuctHover;
+import com.hbm.handler.overlay.FluidDuctOverlay;
+import com.hbm.handler.overlay.GravitatorOverlay;
+import com.hbm.handler.overlay.HudOverlayManager;
+import com.hbm.handler.overlay.JetpackOverlay;
+import com.hbm.handler.overlay.MachineHover;
+import com.hbm.handler.overlay.MachineOverlay;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemMeteoriteBase;
 import com.hbm.items.weapon.sedna.factory.GunFactoryClient;
@@ -177,6 +186,11 @@ public class ClientProxy extends ServerProxy {
 
 		registerClientEventHandler(new ModEventHandlerClient());
 		registerClientEventHandler(new ModEventHandlerRenderer());
+		registerClientEventHandler(new FreeCursorHandler());
+		registerClientEventHandler(new FluidDuctHover());
+		registerClientEventHandler(new MachineHover());
+		registerClientEventHandler(new GravitatorHandler());
+		registerClientEventHandler(new HudOverlayManager().register(new JetpackOverlay()).register(new FluidDuctOverlay()).register(new MachineOverlay()).register(new GravitatorOverlay()));
 		registerClientEventHandler(new EventHandlerParticleEngine());
 		registerClientEventHandler(theInfoSystem);
 		registerClientEventHandler(new NeuralyserFade());
@@ -845,6 +859,9 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlyphidNetherBrenda.class, new RenderGlyphid());
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlyphidNetherNuclear.class, new RenderGlyphidNuclear());
 		RenderingRegistry.registerEntityRenderingHandler(EntityParasiteMaggot.class, new RenderMaggot());
+		RenderingRegistry.registerEntityRenderingHandler(EntityCertmite.class, new RenderCertmite());
+		RenderingRegistry.registerEntityRenderingHandler(EntityCertcloud.class, new RenderCertcloud());
+		RenderingRegistry.registerEntityRenderingHandler(EntityCerticFlare.class, new RenderCerticFlare());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBloatwisp.class, new RenderBloatwisp());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFBIDrone.class, new RenderDrone());
 		RenderingRegistry.registerEntityRenderingHandler(EntityDrossDrone.class, new RenderDrossDrone());
@@ -1465,6 +1482,14 @@ public class ClientProxy extends ServerProxy {
 					fx.motionY = 0;
 					fx.motionZ = 0;
 				}
+			}
+
+			if("certcloud".equals(data.getString("mode"))) {
+				float scale = (float) data.getDouble("scale");
+				net.minecraft.client.particle.EntitySmokeFX smoke = new net.minecraft.client.particle.EntitySmokeFX(world, x, y, z, mX, mY, mZ, scale);
+				float rng = rand.nextFloat() * 0.12F;
+				smoke.setRBGColorF(0.40F + rng, 0.79F + rng, 0.91F + rng);
+				fx = smoke;
 			}
 
 			if("reddust".equals(data.getString("mode"))) {

@@ -25,7 +25,7 @@ public class NetherBiomeHelper {
 		int y = getFloorHeight(world, x, z);
 		if(y <= 0) return false;
 		Block b = world.getBlock(x, y - 1, z);
-		return b == Blocks.netherrack || b == Blocks.soul_sand || b == ModBlocks.glyphid_base || b == ModBlocks.nether_glyphid;
+		return b == Blocks.netherrack || b == Blocks.soul_sand || b == ModBlocks.glyphid_base || b == ModBlocks.nether_glyphid || b == ModBlocks.certus_quartz_block || b == ModBlocks.frozen_netherrack || b == ModBlocks.certine_netherrack;
 	}
 
 	// used for things which do stack on caps
@@ -60,5 +60,38 @@ public class NetherBiomeHelper {
 				if(Math.abs(getFloorHeight(world, x + dx, z + dz) - h) > 1)
 					return false;
 		return true;
+	}
+
+	private static double hash(int x, int y, int z, int seed) {
+		int h = seed;
+		h = h * 31 + x;
+		h = h * 31 + y;
+		h = h * 31 + z;
+		h ^= h >> 13;
+		h *= 0x5bd1e995;
+		h ^= h >> 15;
+		return (h & 0x7fffffff) / (double) 0x7fffffff;
+	}
+
+	private static double lerp(double a, double b, double t) {
+		return a + (b - a) * t;
+	}
+
+	private static double smooth(double t) {
+		return t * t * (3D - 2D * t);
+	}
+
+	public static double noise3(double x, double y, double z, int seed) {
+		int xi = (int) Math.floor(x), yi = (int) Math.floor(y), zi = (int) Math.floor(z);
+		double fx = smooth(x - xi), fy = smooth(y - yi), fz = smooth(z - zi);
+
+		double c000 = hash(xi, yi, zi, seed), c100 = hash(xi + 1, yi, zi, seed);
+		double c010 = hash(xi, yi + 1, zi, seed), c110 = hash(xi + 1, yi + 1, zi, seed);
+		double c001 = hash(xi, yi, zi + 1, seed), c101 = hash(xi + 1, yi, zi + 1, seed);
+		double c011 = hash(xi, yi + 1, zi + 1, seed), c111 = hash(xi + 1, yi + 1, zi + 1, seed);
+
+		double x00 = lerp(c000, c100, fx), x10 = lerp(c010, c110, fx);
+		double x01 = lerp(c001, c101, fx), x11 = lerp(c011, c111, fx);
+		return lerp(lerp(x00, x10, fy), lerp(x01, x11, fy), fz);
 	}
 }

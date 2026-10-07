@@ -1,6 +1,9 @@
 package com.hbm.blocks.machine;
 
+import java.util.List;
+
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.ITooltipProvider;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemFloppyDisk;
 import com.hbm.main.MainRegistry;
@@ -14,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockGenomeSequencer extends BlockDummyable {
+public class BlockGenomeSequencer extends BlockDummyable implements ITooltipProvider {
 
 	public BlockGenomeSequencer() {
 		super(Material.iron);
@@ -93,5 +96,10 @@ public class BlockGenomeSequencer extends BlockDummyable {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
+		this.addStandardInfo(stack, player, list, ext);
 	}
 }

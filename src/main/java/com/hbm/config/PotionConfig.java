@@ -47,6 +47,7 @@ public class PotionConfig {
 	public static int symptomCardiacID = 96;
 	public static int turkishRageID = 97;
 	public static int ganjaID = 98;
+	public static int damagedSkinID = 99;
 	
 	public static void loadFromConfig(Configuration config) {
 
@@ -71,6 +72,7 @@ public class PotionConfig {
 		medxID = CommonConfig.createConfigInt(config, CATEGORY_POTION, "8.16_medxID", "What potion ID the Med-X Resistance effect will have", 79);
 		roidRageID = CommonConfig.createConfigInt(config, CATEGORY_POTION, "8.17_roidRageID", "What potion ID the Roid Rage effect will have", 80);
 		wobbleID = CommonConfig.createConfigInt(config, CATEGORY_POTION, "8.18_wobbleID", "What potion ID the Wobble effect will have", 81);
+		damagedSkinID = CommonConfig.createConfigInt(config, CATEGORY_POTION, "8.19_damagedSkinID", "What potion ID the Damaged Skin effect will have", 99);
 
 
 		

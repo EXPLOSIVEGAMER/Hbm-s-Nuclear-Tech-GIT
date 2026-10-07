@@ -4,6 +4,7 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
 import com.hbm.config.WorldConfig;
 import com.hbm.world.gen.MapGenChainloader;
+import com.hbm.dim.hell.MapGenCertineWall;
 import com.hbm.world.gen.MapGenNTMFeatures;
 import com.hbm.world.gen.NTMWorldGenerator;
 import com.hbm.world.gen.component.*;
@@ -60,6 +61,8 @@ public class HbmWorld {
 
 	/** Register multi-chunk spanning terrain features using chainloader */
 	private static void registerNTMTerrain() {
+		MapGenChainloader.addNetherGenerator(new MapGenCertineWall());
+
 		if(GeneralConfig.enableRad && WorldConfig.radfreq > 0) {
 			MapGenCrater sellafieldCrater = new MapGenCrater(WorldConfig.radfreq);
 			sellafieldCrater.regolith = sellafieldCrater.rock = ModBlocks.sellafield_slaked;

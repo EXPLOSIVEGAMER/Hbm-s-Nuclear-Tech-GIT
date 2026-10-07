@@ -6,6 +6,7 @@ import com.hbm.blocks.ICustomBlockHighlight;
 import com.hbm.config.ClientConfig;
 import com.hbm.config.RadiationConfig;
 import com.hbm.dim.WorldProviderCelestial;
+import com.hbm.dim.hell.BiomeGenCertineCaverns;
 import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.handler.pollution.PollutionHandler.PollutionType;
@@ -806,6 +807,13 @@ public class ModEventHandlerRenderer {
 			g *= skyBrightness;
 			b *= skyBrightness;
 
+			doesBiomeApply = true;
+		}
+
+		if(biome == BiomeGenCertineCaverns.certineCaverns) {
+			r = 0x86 / 255F;
+			g = 0xC9 / 255F;
+			b = 0xE8 / 255F;
 			doesBiomeApply = true;
 		}
 

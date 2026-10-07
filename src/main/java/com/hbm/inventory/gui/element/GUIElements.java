@@ -311,7 +311,7 @@ public class GUIElements {
 		if(lines.isEmpty()) return;
 
 		int[] colors = fluidBorderColors(types);
-		int headerOffset = 6;
+		int headerOffset = STANDARD_HEADER_OFFSET;
 		int[] bounds = hoveringBounds(lines, x, y, font, guiWidth, guiHeight, headerOffset, STANDARD_LINE_DIST);
 		int boundX = bounds[0], boundY = bounds[1], width = bounds[2], height = bounds[3];
 

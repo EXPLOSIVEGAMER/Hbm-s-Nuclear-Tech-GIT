@@ -81,6 +81,9 @@ public class PacketDispatcher {
 		wrapper.registerMessage(PlayerNBTNeuralyserPacket.Handler.class, PlayerNBTNeuralyserPacket.class, i++, Side.CLIENT);
 		//Starts the Neuralyser transition effect
 		wrapper.registerMessage(NeuralyserFadePacket.Handler.class, NeuralyserFadePacket.class, i++, Side.CLIENT);
+		wrapper.registerMessage(JetpackControlPacket.Handler.class, JetpackControlPacket.class, i++, Side.SERVER);
+		wrapper.registerMessage(GravitatorPacket.Handler.class, GravitatorPacket.class, i++, Side.SERVER);
+		wrapper.registerMessage(GravitatorDragPacket.Handler.class, GravitatorDragPacket.class, i++, Side.SERVER);
 	}
 
 }

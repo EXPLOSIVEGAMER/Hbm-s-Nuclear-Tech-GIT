@@ -234,6 +234,9 @@ public class EntityMappings {
 		addMob(EntityGlyphidNetherNuclear.class, "entity_glyphid_nether_nuclear", 0x267F00, 0xA0A0A0);
 		addMob(EntityPlasticBag.class, "entity_plastic_bag", 0xd0d0d0, 0x808080);
 		addMob(EntityParasiteMaggot.class, "entity_parasite_maggot", 0xd0d0d0, 0x808080);
+		addMob(EntityCertmite.class, "entity_certmite", 0x86C9E8, 0x4A7C99);
+		addMob(EntityCertcloud.class, "entity_certcloud", 0xAFE3F2, 0x86C9E8);
+		addMob(EntityCerticFlare.class, "entity_certic_flare", 0x66CCFF, 0x86C9E8);
 		addMob(EntityBloatwisp.class, "entity_bloatwisp", 0xFFD800, 0x9C8A1F);
 		addMob(EntityDummy.class, "entity_ntm_test_dummy", 0xffffff, 0x000000);
 		addMob(EntityUndeadSoldier.class, "entity_ntm_undead_soldier", 0x749F30, 0x6C5B44);

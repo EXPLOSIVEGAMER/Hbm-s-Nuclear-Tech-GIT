@@ -11,6 +11,7 @@ import com.hbm.items.ItemVial;
 import com.hbm.items.ModItems;
 
 import api.hbm.fluidmk2.IFillableItem;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class MagneticSeparatorRecipes extends GenericRecipes<GenericRecipe> {
@@ -46,6 +47,17 @@ public class MagneticSeparatorRecipes extends GenericRecipes<GenericRecipe> {
 						GenomeSample.make("antigenMutability", "0.2"),
 						GenomeSample.make("incubation", "144000"))
 				.setIconToFirstIngredient());
+
+		this.register(new GenericRecipe("magsep.certusShards").setup(200, 500)
+				.inputItems(new ComparableStack(ModItems.certus_shard_smoky, 1))
+				.inputFluids(new FluidStack(Fluids.FERROFLUID, 1_000))
+				.outputItems(new ItemStack(ModItems.nugget_technetium, 1), new ItemStack(Items.quartz, 2))
+				.setIconToFirstIngredient());
+
+		this.register(new GenericRecipe("magsep.certicVapors").setup(200, 500)
+				.inputFluids(new FluidStack(Fluids.CERTIC_VAPORS, 1_000))
+				.outputItems(new ItemStack(ModItems.powder_certus_quartz, 1))
+				.outputFluids(new FluidStack(Fluids.AIR, 1_000)));
 	}
 
 	private static ItemStack bloodVial() {

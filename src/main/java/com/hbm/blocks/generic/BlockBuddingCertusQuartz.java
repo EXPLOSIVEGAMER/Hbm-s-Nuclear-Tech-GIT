@@ -2,6 +2,10 @@ package com.hbm.blocks.generic;
 
 import com.hbm.blocks.BlockBuddingBase;
 import com.hbm.blocks.ModBlocks;
+import com.hbm.entity.mob.EntityCertmite;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
@@ -28,5 +32,16 @@ public class BlockBuddingCertusQuartz extends BlockBuddingBase {
 	@Override
 	protected boolean canGrow(World world, int x, int y, int z) {
 		return true;
+	}
+
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random rand) {
+		super.updateTick(world, x, y, z, rand);
+
+		if(!world.isRemote && world.provider.dimensionId == -1 && rand.nextInt(200) == 0 && world.countEntities(EntityCertmite.class) < 24) {
+			EntityCertmite mite = new EntityCertmite(world);
+			mite.setLocationAndAngles(x + 0.5D + (rand.nextDouble() - 0.5D), y + 1.0D, z + 0.5D + (rand.nextDouble() - 0.5D), rand.nextFloat() * 360F, 0.0F);
+			world.spawnEntityInWorld(mite);
+		}
 	}
 }

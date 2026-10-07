@@ -49,21 +49,18 @@ public class GrowthChamberRecipes extends GenericRecipes<GenericRecipe> {
 			.inputFluids(new FluidStack(Fluids.BRINE, 16000, 2))
 			.outputItems(new ItemStack(ModBlocks.budding_salt)));
 
-		// Certus Quartz
-		if (Compat.isModLoaded(Compat.MOD_AE2)) {
-			this.register(new GenericRecipe("growth.certus_quartz.water")
-				.inputItems(new ComparableStack(ModItems.powder_certus_quartz))
-				.inputFluids(new FluidStack(Fluids.WATER, 8000))
-				.outputItems(new ItemStack(ModBlocks.certus_quartz_bud_large)));
-			this.register(new GenericRecipe("growth.certus_quartz.heavywater")
-				.inputItems(new ComparableStack(ModItems.powder_certus_quartz))
-				.inputFluids(new FluidStack(Fluids.HEAVYWATER, 8000))
-				.outputItems(new ItemStack(ModBlocks.certus_quartz_cluster)));
-			this.register(new GenericRecipe("growth.budding_certus_quartz")
-				.inputItems(new ComparableStack(ModBlocks.block_crystal_3, 8, EnumCrystalBlockType.CERTUS.ordinal() - 32))
-				.inputFluids(new FluidStack(Fluids.HEAVYWATER, 16000, 4))
-				.outputItems(new ItemStack(ModBlocks.budding_certus_quartz)));
-		}
+		this.register(new GenericRecipe("growth.certus_quartz.vapors")
+			.inputItems(new ComparableStack(ModItems.powder_certus_quartz))
+			.inputFluids(new FluidStack(Fluids.CERTIC_VAPORS, 1_000, 1))
+			.outputItems(new ItemStack(ModBlocks.certus_quartz_bud_large)));
+		this.register(new GenericRecipe("growth.certus_quartz.vapors_dense")
+			.inputItems(new ComparableStack(ModItems.powder_certus_quartz))
+			.inputFluids(new FluidStack(Fluids.CERTIC_VAPORS, 1_000, 2))
+			.outputItems(new ItemStack(ModBlocks.certus_quartz_cluster)));
+		this.register(new GenericRecipe("growth.budding_certus_quartz")
+			.inputItems(new ComparableStack(ModBlocks.block_crystal_3, 8, EnumCrystalBlockType.CERTUS.ordinal() - 32))
+			.inputFluids(new FluidStack(Fluids.CERTIC_VAPORS, 2_000, 4))
+			.outputItems(new ItemStack(ModBlocks.budding_certus_quartz)));
 
 		//Plants
 			this.register(new GenericRecipe("growth.hemp.fertilizer").setup(100, 50)

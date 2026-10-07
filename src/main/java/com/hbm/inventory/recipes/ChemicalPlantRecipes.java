@@ -79,6 +79,36 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.inputFluids(new FluidStack(Fluids.PETROLEUM, 1_000), new FluidStack(Fluids.UNSATURATEDS, 500))
 				.outputFluids(new FluidStack(Fluids.PERFLUOROMETHYL, 1_000)));
 
+		this.register(new GenericRecipe("chem.finesoot").setup(100, 100)
+				.inputItems(new ComparableStack(ModItems.certus_shard_smoky, 4))
+				.inputFluids(new FluidStack(Fluids.DEW_OF_THE_GARDEN, 500))
+				.outputItems(new ItemStack(ModItems.powder_soot_fine, 2))
+				.setIconToFirstIngredient());
+
+		this.register(new GenericRecipe("chem.glowstonecertus").setup(100, 500)
+				.inputItems(new OreDictStack("crystalCertusQuartz"))
+				.inputFluids(new FluidStack(Fluids.SODIUM, 250))
+				.outputItems(new ItemStack(Blocks.glowstone, 1))
+				.setIconToFirstIngredient());
+
+		this.register(new GenericRecipe("chem.ferrofluid.aromatics").setup(200, 500)
+				.inputItems(new OreDictStack(IRON.dust(), 32))
+				.inputFluids(new FluidStack(Fluids.WATER, 100), new FluidStack(Fluids.AROMATICS, 100))
+				.outputFluids(new FluidStack(Fluids.FERROFLUID, 10))
+				.setIcon(ModItems.canister_full, Fluids.FERROFLUID.getID()));
+
+		this.register(new GenericRecipe("chem.ferrofluid.haemoglobin").setup(200, 500)
+				.inputItems(new OreDictStack(IRON.dust(), 32))
+				.inputFluids(new FluidStack(Fluids.WATER, 100), new FluidStack(Fluids.HAEMOGLOBIN, 100))
+				.outputFluids(new FluidStack(Fluids.FERROFLUID, 10))
+				.setIcon(ModItems.canister_full, Fluids.FERROFLUID.getID()));
+
+		this.register(new GenericRecipe("chem.certusmagnet").setup(200, 500)
+				.inputFluids(new FluidStack(Fluids.CERTUS_SUSPENSION, 1_000), new FluidStack(Fluids.FERROFLUID, 1_000))
+				.outputItems(new ItemStack(ModItems.certus_shard_smoky, 2))
+				.outputFluids(new FluidStack(Fluids.URANUS_TEARS, 500), new FluidStack(Fluids.CERTIC_VAPORS, 1_000))
+				.setIconToFirstIngredient());
+
 		this.register(new GenericRecipe("chem.cccentrifuge").setup(200, 100)
 				.inputFluids(new FluidStack(Fluids.CHLOROCALCITE_CLEANED, 500), new FluidStack(Fluids.SULFURIC_ACID, 8_000))
 				.outputFluids(new FluidStack(Fluids.POTASSIUM_CHLORIDE, 250), new FluidStack(Fluids.CALCIUM_CHLORIDE, 250)));
@@ -150,6 +180,15 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 		this.register(new GenericRecipe("chem.obsidian").setup(60, 500).setPools(GenericRecipes.POOL_PREFIX_DISCOVER + ".stone")
 				.inputFluids(new FluidStack(Fluids.WATER, 1_000), new FluidStack(Fluids.LAVA, 500), new FluidStack(Fluids.AIR, 4_000))
 				.outputItems(new ItemStack(Blocks.obsidian)));
+		this.register(new GenericRecipe("chem.cobble.tears").setup(20, 100)
+				.inputFluids(new FluidStack(Fluids.URANUS_TEARS, 1_000), new FluidStack(Fluids.LAVA, 25))
+				.outputItems(new ItemStack(Blocks.cobblestone, 64)));
+		this.register(new GenericRecipe("chem.stone.tears").setup(60, 500).setPools(GenericRecipes.POOL_PREFIX_DISCOVER + ".stone")
+				.inputFluids(new FluidStack(Fluids.URANUS_TEARS, 1_000), new FluidStack(Fluids.LAVA, 25), new FluidStack(Fluids.AIR, 4_000))
+				.outputItems(new ItemStack(Blocks.stone, 64)));
+		this.register(new GenericRecipe("chem.obsidian.tears").setup(60, 500).setPools(GenericRecipes.POOL_PREFIX_DISCOVER + ".stone")
+				.inputFluids(new FluidStack(Fluids.URANUS_TEARS, 1_000), new FluidStack(Fluids.LAVA, 500), new FluidStack(Fluids.AIR, 4_000))
+				.outputItems(new ItemStack(Blocks.obsidian, 64)));
 		this.register(new GenericRecipe("chem.aggregate").setupNamed(320, 500).setPools(GenericRecipes.POOL_PREFIX_DISCOVER + ".stone")
 				.inputItems(new ComparableStack(Blocks.cobblestone, 16))
 				.outputItems(new ItemStack(Blocks.gravel, 8), new ItemStack(Blocks.sand, 8)));

@@ -3,6 +3,7 @@ package com.hbm.tileentity.machine;
 import java.util.List;
 
 import com.hbm.dim.trait.CBT_Atmosphere;
+import com.hbm.dim.hell.BiomeGenCertineCaverns;
 import com.hbm.handler.atmosphere.AtmosphereBlob;
 import com.hbm.handler.atmosphere.ChunkAtmosphereManager;
 import com.hbm.inventory.fluid.FluidType;
@@ -41,9 +42,18 @@ public class TileEntityMachineIntake extends TileEntityLoadedBase implements IEn
 
 		if(!worldObj.isRemote) {
 
+			// certine caverns: air thick with glassy dust, gather it slowly
+			boolean certine = worldObj.getBiomeGenForCoords(xCoord, zCoord) instanceof BiomeGenCertineCaverns;
+
 			if(this.power >= this.getMaxPower() / 20) {
-				if(canCompress()) {
-					this.compair.setFill(this.compair.getMaxFill());
+				if(certine) {
+					if(this.compair.getTankType() != Fluids.VITREOUS_VAPOR) this.compair.setTankType(Fluids.VITREOUS_VAPOR);
+					if(worldObj.getTotalWorldTime() % 5 == 0 && this.compair.getFill() < this.compair.getMaxFill()) this.compair.setFill(this.compair.getFill() + 1);
+				} else {
+					if(this.compair.getTankType() != Fluids.AIR) this.compair.setTankType(Fluids.AIR);
+					if(canCompress()) {
+						this.compair.setFill(this.compair.getMaxFill());
+					}
 				}
 
 				this.power -= this.getMaxPower() / 20;
@@ -178,7 +188,7 @@ public class TileEntityMachineIntake extends TileEntityLoadedBase implements IEn
 	}
 
 	@Override public boolean canConnect(ForgeDirection dir) { return dir != ForgeDirection.UP && dir != ForgeDirection.DOWN; }
-	@Override public boolean canConnect(FluidType type, ForgeDirection dir) { return type == Fluids.AIR && dir != ForgeDirection.UP && dir != ForgeDirection.DOWN; }
+	@Override public boolean canConnect(FluidType type, ForgeDirection dir) { return (type == Fluids.AIR || type == Fluids.VITREOUS_VAPOR) && dir != ForgeDirection.UP && dir != ForgeDirection.DOWN; }
 
 	@Override public void setPower(long i) { power = i; }
 	@Override public long getPower() { return power; }

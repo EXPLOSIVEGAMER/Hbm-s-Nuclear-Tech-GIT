@@ -175,6 +175,8 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 				.inputItems(new OreDictStack(STEEL.plate(), 1), new OreDictStack(MINGRADE.wireFine(), 2), new OreDictStack(NETHERQUARTZ.dust(), 2)));
 		this.register(new GenericRecipe("ass.thermoelementsilicon").setup(60, 100).outputItems(new ItemStack(ModItems.thermo_element, 1))
 				.inputItems(new OreDictStack(STEEL.plate(), 1), new OreDictStack(GOLD.wireFine(), 2), new OreDictStack(SI.billet(), 1)));
+		this.register(new GenericRecipe("ass.thermoelementcertus").setup(60, 100).outputItems(new ItemStack(ModItems.thermo_element, 2))
+				.inputItems(new OreDictStack(STEEL.plate(), 1), new OreDictStack(MINGRADE.wireFine(), 2), new ComparableStack(ModItems.quartz_crystal, 2)));
 		this.register(new GenericRecipe("ass.rtgunit").setup(100, 100).outputItems(new ItemStack(ModItems.rtg_unit, 1))
 				.inputItems(new OreDictStack(PB.plateCast(), 2), new OreDictStack(CU.plate(), 4), new ComparableStack(ModItems.thermo_element, 2)));
 		this.register(new GenericRecipe("ass.magnetron").setup(40, 100).outputItems(new ItemStack(ModItems.magnetron, 1))

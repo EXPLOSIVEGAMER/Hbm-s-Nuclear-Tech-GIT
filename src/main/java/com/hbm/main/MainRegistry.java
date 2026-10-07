@@ -754,6 +754,7 @@ public class MainRegistry {
 		event.registerServerCommand(new CommandCustomize());
 		event.registerServerCommand(new CommandWikiRender()); // TODO: make this shitfuck be clientside
 		event.registerServerCommand(new CommandReapNetworks());
+		event.registerServerCommand(new CommandPathogens());
 		ArcFurnaceRecipes.registerFurnaceSmeltables(); // because we have to wait for other mods to take their merry ass time to register recipes
 	}
 

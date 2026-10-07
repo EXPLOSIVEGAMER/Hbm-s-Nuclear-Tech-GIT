@@ -16,6 +16,7 @@ import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
 import com.hbm.inventory.fluid.Fluids;
+import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.recipes.loader.SerializableRecipe;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemFluidIcon;
@@ -170,6 +171,44 @@ public class SolderingRecipes extends SerializableRecipe {
 					new AStack[] {
 							new OreDictStack(PB.wireFine(), 32)}
 			));
+
+		recipes.add(new SolderingRecipe(new ItemStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER.ordinal()), 400, 15_000,
+					new FluidStack(Fluids.URANUS_TEARS, 1_000),
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 16, EnumCircuitType.CHIP),
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 16, EnumCircuitType.CAPACITOR),
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 8, EnumCircuitType.CAPACITOR_TANTALIUM)},
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER_CHASSIS),
+							new OreDictStack(RUBBER.ingot(), 2)},
+					new AStack[] {
+							new OreDictStack(PB.wireFine(), 8)}
+			));
+		recipes.add(new SolderingRecipe(new ItemStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER_ADVANCED.ordinal()), 600, 25_000,
+					new FluidStack(Fluids.URANUS_TEARS, 4_000),
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 8, EnumCircuitType.CHIP_BISMOID),
+							new ComparableStack(ModItems.circuit, lbsm ? 8 : 24, EnumCircuitType.CAPACITOR_TANTALIUM),
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 16, EnumCircuitType.CAPACITOR_LANTHANIUM)},
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER_CHASSIS),
+							new OreDictStack(ANY_HARDPLASTIC.ingot(), 2)},
+					new AStack[] {
+							new OreDictStack(PB.wireFine(), 12)}
+			));
+
+		recipes.add(new SolderingRecipe(new ItemStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER_QUANTUM.ordinal()), 600, 250_000,
+					new FluidStack(Fluids.URANUS_TEARS, 6_000),
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, lbsm ? 4 : 8, EnumCircuitType.CHIP_QUANTUM),
+							new ComparableStack(ModItems.circuit, lbsm ? 8 : 24, EnumCircuitType.CHIP_BISMOID),
+							new ComparableStack(ModItems.circuit, lbsm ? 1 : 4, EnumCircuitType.ATOMIC_CLOCK)},
+					new AStack[] {
+							new ComparableStack(ModItems.circuit, 1, EnumCircuitType.CONTROLLER_ADVANCED),
+							new ComparableStack(ModItems.upgrade_speed_3)},
+					new AStack[] {
+							new OreDictStack(PB.wireFine(), 16)}
+			));
 		}
 		
 		recipes.add(new SolderingRecipe(new ItemStack(ModItems.sat_chip), 100, 100,
@@ -314,9 +353,10 @@ public class SolderingRecipes extends SerializableRecipe {
 		));
 	}
 
-	public static SolderingRecipe getRecipe(ItemStack[] inputs) {
+	public static SolderingRecipe getRecipe(ItemStack[] inputs, FluidType fluid) {
 
 		for(SolderingRecipe recipe : recipes) {
+			if(recipe.fluid != null && recipe.fluid.type != fluid) continue;
 			if(matchesIngredients(new ItemStack[] {inputs[0], inputs[1], inputs[2]}, recipe.toppings) &&
 					matchesIngredients(new ItemStack[] {inputs[3], inputs[4]}, recipe.pcb) &&
 					matchesIngredients(new ItemStack[] {inputs[5]}, recipe.solder)) return recipe;

@@ -63,7 +63,6 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.machine.rbmk.IRBMKFluxReceiver.NType;
 import com.hbm.util.Compat;
 import com.hbm.util.RTGUtil;
-
 import api.hbm.block.IToolable.ToolType;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -590,6 +589,9 @@ public class ModItems {
 	public static Item salt_shard;
 	public static Item quartz_crystal;
 	public static Item powder_certus_quartz;
+	public static Item certus_shard_smoky;
+	public static Item powder_soot_fine;
+	public static Item ingot_fiberglass_certine;
 
 	public static Item nickel_salts;
 
@@ -2008,10 +2010,8 @@ public class ModItems {
 	public static Item robes_legs;
 	public static Item robes_boots;
 
-	public static Item jetpack_boost;
-	public static Item jetpack_break;
-	public static Item jetpack_fly;
-	public static Item jetpack_vector;
+	public static Item jetpack;
+	public static Item gravitator;
 	public static Item wings_limp;
 	public static Item wings_murk;
 	public static Item oxy_plss;
@@ -2875,6 +2875,9 @@ public class ModItems {
 
 		quartz_crystal = new Item().setUnlocalizedName("quartz_crystal").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":quartz_crystal");
 		powder_certus_quartz = new Item().setUnlocalizedName("powder_certus_quartz").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_certus_quartz");
+		certus_shard_smoky = new Item().setUnlocalizedName("certus_shard_smoky").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":certus_shard_smoky");
+		powder_soot_fine = new Item().setUnlocalizedName("powder_soot_fine").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_soot_fine");
+		ingot_fiberglass_certine = new ItemCustomLore().setUnlocalizedName("ingot_fiberglass_certine").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":ingot_fiberglass_certine");
 
 		powder_lead = new Item().setUnlocalizedName("powder_lead").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_lead");
 		powder_tantalium = new ItemCustomLore().setUnlocalizedName("powder_tantalium").setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":powder_tantalium");
@@ -4906,10 +4909,8 @@ public class ModItems {
 		liquidator_legs = new ArmorLiquidator(aMatLiquidator, 2, RefStrings.MODID + ":textures/armor/liquidator_2.png").cloneStats((ArmorFSB) liquidator_helmet).setUnlocalizedName("liquidator_legs").setMaxStackSize(1).setTextureName(RefStrings.MODID + ":liquidator_legs");
 		liquidator_boots = new ArmorLiquidator(aMatLiquidator, 3, RefStrings.MODID + ":textures/armor/liquidator_1.png").cloneStats((ArmorFSB) liquidator_helmet).setUnlocalizedName("liquidator_boots").setMaxStackSize(1).setTextureName(RefStrings.MODID + ":liquidator_boots");
 
-		jetpack_boost = new JetpackBooster(Fluids.BALEFIRE, 32000).setUnlocalizedName("jetpack_boost").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":jetpack_boost");
-		jetpack_break = new JetpackBreak(Fluids.KEROSENE, 12000).setUnlocalizedName("jetpack_break").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":jetpack_break");
-		jetpack_fly = new JetpackRegular(Fluids.KEROSENE, 12000).setUnlocalizedName("jetpack_fly").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":jetpack_fly");
-		jetpack_vector = new JetpackVectorized(Fluids.KEROSENE, 16000).setUnlocalizedName("jetpack_vector").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":jetpack_vector");
+		jetpack = new Jetpack(Fluids.KEROSENE, 16000).setUnlocalizedName("jetpack").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":jetpack");
+		gravitator = new Gravitator().setUnlocalizedName("gravitator").setTextureName(RefStrings.MODID + ":gravitator");
 		wings_murk = new WingsMurk().setUnlocalizedName("wings_murk").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":wings_murk");
 		wings_limp = new WingsMurk().setUnlocalizedName("wings_limp").setCreativeTab(CreativeTabs.tabCombat).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":wings_limp");
 		oxy_plss = new ItemModOxy(16000, 10, 1).setUnlocalizedName("oxy_plss").setCreativeTab(MainRegistry.consumableTab).setMaxStackSize(1).setTextureName(RefStrings.MODID + ":oxy_plss");
@@ -5530,10 +5531,8 @@ public class ModItems {
 		GameRegistry.registerItem(crystal_zinc, crystal_zinc.getUnlocalizedName()); // the true path to enlightenment is ignoring the little green circle
 		GameRegistry.registerItem(salt_shard, salt_shard.getUnlocalizedName());
 
-		if (Compat.isModLoaded(Compat.MOD_AE2)) {
-			GameRegistry.registerItem(quartz_crystal, quartz_crystal.getUnlocalizedName());
-			GameRegistry.registerItem(powder_certus_quartz, powder_certus_quartz.getUnlocalizedName());
-		}
+		GameRegistry.registerItem(quartz_crystal, quartz_crystal.getUnlocalizedName());
+		GameRegistry.registerItem(powder_certus_quartz, powder_certus_quartz.getUnlocalizedName());
 
 		//Fragments
 		GameRegistry.registerItem(fragment_neodymium, fragment_neodymium.getUnlocalizedName());
@@ -6096,6 +6095,11 @@ public class ModItems {
 		GameRegistry.registerItem(blades_steel, blades_steel.getUnlocalizedName());
 		GameRegistry.registerItem(blades_titanium, blades_titanium.getUnlocalizedName());
 		GameRegistry.registerItem(blades_desh, blades_desh.getUnlocalizedName());
+
+		//Certus Quartz Processing
+		GameRegistry.registerItem(certus_shard_smoky, certus_shard_smoky.getUnlocalizedName());
+		GameRegistry.registerItem(powder_soot_fine, powder_soot_fine.getUnlocalizedName());
+		GameRegistry.registerItem(ingot_fiberglass_certine, ingot_fiberglass_certine.getUnlocalizedName());
 
 		//Generator Stuff
 		GameRegistry.registerItem(thermo_element, thermo_element.getUnlocalizedName());
@@ -7258,10 +7262,8 @@ public class ModItems {
 		GameRegistry.registerItem(mask_of_infamy, mask_of_infamy.getUnlocalizedName());
 		GameRegistry.registerItem(jackt, jackt.getUnlocalizedName());
 		GameRegistry.registerItem(jackt2, jackt2.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_fly, jetpack_fly.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_break, jetpack_break.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_vector, jetpack_vector.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_boost, jetpack_boost.getUnlocalizedName());
+		GameRegistry.registerItem(jetpack, jetpack.getUnlocalizedName());
+		GameRegistry.registerItem(gravitator, gravitator.getUnlocalizedName());
 		GameRegistry.registerItem(wings_limp, wings_limp.getUnlocalizedName());
 		GameRegistry.registerItem(wings_murk, wings_murk.getUnlocalizedName());
 		GameRegistry.registerItem(oxy_plss, oxy_plss.getUnlocalizedName());

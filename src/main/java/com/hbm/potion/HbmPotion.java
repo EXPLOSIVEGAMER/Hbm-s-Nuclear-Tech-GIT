@@ -82,6 +82,7 @@ public class HbmPotion extends Potion {
 	//drugs
 	public static HbmPotion turkishRage;
 	public static HbmPotion ganja;
+	public static HbmPotion damagedSkin;
 
 	public HbmPotion(int id, boolean isBad, int color) {
 		super(id, isBad, color);
@@ -128,6 +129,7 @@ public class HbmPotion extends Potion {
 		//sillies
 		turkishRage = registerPotion(PotionConfig.turkishRageID, false, 0xFF0000, "potion.hbm_turkish_rage", 4, 2);
 		ganja = registerPotion(PotionConfig.ganjaID, false, 0x3A5F0B, "potion.hbm_high", 5, 2);
+		damagedSkin = registerPotion(PotionConfig.damagedSkinID, true, 0x9A7B4F, "potion.hbm_damaged_skin", 6, 2);
 
 	}
 
@@ -306,6 +308,10 @@ public class HbmPotion extends Potion {
 			entity.worldObj.playSoundEffect(entity.posX, entity.posY, entity.posZ, "ambient.weather.thunder", 100.0F, 0.8F + entity.worldObj.rand.nextFloat() * 0.2F);
 		}
 
+		if(this == damagedSkin) {
+			entity.attackEntityFrom(ModDamageSource.damagedSkin, 1F);
+		}
+
 		if(this == symptomFever || this == symptomCough || this == symptomSneeze || this == symptomSchizophrenia
 				|| this == symptomParalysis || this == symptomHemorrhage || this == symptomSeptic || this == symptomComa
 				|| this == symptomRash || this == symptomVomit || this == symptomSeizure
@@ -343,6 +349,10 @@ public class HbmPotion extends Potion {
 
 		if(this == turkishRage || this == ganja) {
 			return par1 % 20 == 0;
+		}
+
+		if(this == damagedSkin) {
+			return par1 % 60 == 0;
 		}
 
 		if(this == symptomFever || this == symptomCough || this == symptomSneeze || this == symptomSchizophrenia

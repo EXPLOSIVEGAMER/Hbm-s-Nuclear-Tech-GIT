@@ -111,6 +111,7 @@ public class ArmorRegistry {
 		GAS_INERT("hazard.gasInert"),					//SA
 		PARTICLE_COARSE("hazard.particleCoarse"),		//only affects lungs
 		PARTICLE_FINE("hazard.particleFine"),			//only affects lungs
+		PARTICLE_ULTRA_FINE("hazard.particleUltrafine"),	//only the omega filter stops it
 		BACTERIA("hazard.bacteria"),					//no half masks
 		VIRUS("hazard.virus"),
 		FUNGUS("hazard.fungus"),
