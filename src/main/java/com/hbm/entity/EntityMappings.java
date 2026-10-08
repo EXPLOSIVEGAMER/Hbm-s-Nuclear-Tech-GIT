@@ -183,6 +183,8 @@ public class EntityMappings {
 		addEntity(EntityRedLightning.class, "entity_red_lightning", 100, false);
 		addEntity(EntityGreenLightning.class, "entity_green_lightning", 100, false);
 
+		addEntity(EntityHyperTubeCapsule.class, "entity_hypertube_capsule", 250);
+
 		addMob(EntityWarBehemoth.class, "entity_war_behemoth", 0x204131, 0x75CE00);
 		addMob(EntityTankbot.class, "entity_tankbot", 0x204131, 0x75CE00);
 		addMob(EntityBFAngel.class, "entity_ntm_bfa", 0x204131, 0x75CE00);

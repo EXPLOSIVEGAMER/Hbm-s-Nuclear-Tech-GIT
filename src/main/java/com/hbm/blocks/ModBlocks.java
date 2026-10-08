@@ -14,6 +14,8 @@ import com.hbm.blocks.machine.fusion.*;
 import com.hbm.blocks.machine.pile.*;
 import com.hbm.blocks.machine.rbmk.*;
 import com.hbm.blocks.network.*;
+import com.hbm.blocks.network.hypertube.BlockHyperTube;
+import com.hbm.blocks.network.hypertube.BlockHyperTubeStation;
 import com.hbm.blocks.network.pneumatic.*;
 import com.hbm.blocks.rail.*;
 import com.hbm.blocks.test.*;
@@ -979,6 +981,9 @@ public class ModBlocks {
 	public static Block pneumatic_storage_mono;
 	public static Block pneumatic_storage_importer;
 	public static Block pneumatic_storage_exporter;
+
+	public static Block hypertube;
+	public static Block hypertube_station;
 
 	public static Block fan;
 	public static Block piston_inserter;
@@ -2361,6 +2366,9 @@ public class ModBlocks {
 		pneumatic_storage_mono = new PneumoStorageMono().setBlockName("pneumatic_storage_mono").setStepSound(ModSoundTypes.pipe).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pneumatic_storage_mono");
 		pneumatic_storage_importer = new PneumoStorageImporter().setBlockName("pneumatic_storage_importer").setStepSound(ModSoundTypes.pipe).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pneumatic_storage_importer");
 		pneumatic_storage_exporter = new PneumoStorageExporter().setBlockName("pneumatic_storage_exporter").setStepSound(ModSoundTypes.pipe).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":pneumatic_storage_exporter");
+
+		hypertube = new BlockHyperTube().setBlockName("hypertube").setStepSound(ModSoundTypes.pipe).setHardness(2F).setResistance(10F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
+		hypertube_station = new BlockHyperTubeStation().setBlockName("hypertube_station").setHardness(5F).setResistance(10F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
 
 		chain = new BlockChain(Material.iron).setBlockName("dungeon_chain").setHardness(0.25F).setResistance(2.0F).setCreativeTab(MainRegistry.blockTab).setBlockTextureName(RefStrings.MODID + ":chain");
 
@@ -3923,6 +3931,8 @@ public class ModBlocks {
 		register(pneumatic_storage_mono);
 		register(pneumatic_storage_importer);
 		register(pneumatic_storage_exporter);
+		register(hypertube);
+		register(hypertube_station);
 		register(fan);
 		register(piston_inserter);
 

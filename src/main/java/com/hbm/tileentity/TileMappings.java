@@ -62,6 +62,8 @@ import com.hbm.tileentity.machine.pile.*;
 import com.hbm.tileentity.machine.rbmk.*;
 import com.hbm.tileentity.machine.storage.*;
 import com.hbm.tileentity.network.*;
+import com.hbm.tileentity.network.hypertube.TileEntityHyperTube;
+import com.hbm.tileentity.network.hypertube.TileEntityHyperTubeStation;
 import com.hbm.tileentity.network.pneumatic.*;
 import com.hbm.tileentity.turret.*;
 import com.hbm.util.Compat;
@@ -554,6 +556,9 @@ public class TileMappings {
 		put(TileEntityPneumoStorageMono.class, "tileentity_pneumatic_storage_mono");
 		put(TileEntityPneumoStorageImporter.class, "tileentity_pneumatic_storage_importer");
 		put(TileEntityPneumoStorageExporter.class, "tileentity_pneumatic_storage_exporter");
+
+		put(TileEntityHyperTube.class, "tileentity_hypertube");
+		put(TileEntityHyperTubeStation.class, "tileentity_hypertube_station");
 
 		put(TileEntityRadioTorchSender.class, "tileentity_rtty_sender");
 		put(TileEntityRadioTorchReceiver.class, "tileentity_rtty_rec");

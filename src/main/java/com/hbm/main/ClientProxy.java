@@ -90,6 +90,7 @@ import com.hbm.render.model.ModelScutter;
 import com.hbm.render.model.ModelScuttlecrab;
 import com.hbm.render.model.ModelSifterEel;
 import com.hbm.render.tileentity.*;
+import com.hbm.render.tileentity.hypertube.RenderHyperTube;
 import com.hbm.render.util.MissilePart;
 import com.hbm.render.util.NeuralyserFade;
 import com.hbm.render.entity.player.RenderPlayerHusk;
@@ -893,6 +894,12 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityOrangeFX.class, new MultiCloudRenderer(new Item[] { ModItems.orange1, ModItems.orange2, ModItems.orange3, ModItems.orange4, ModItems.orange5, ModItems.orange6, ModItems.orange7, ModItems.orange8 }));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFogFX.class, new FogRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityEMPBlast.class, new RenderEMPBlast());
+
+		//Misc
+		RenderingRegistry.registerEntityRenderingHandler(EntityHyperTubeCapsule.class, new Render() {
+			@Override public void doRender(Entity entity, double v, double v1, double v2, float v3, float v4) {}
+			@Override protected ResourceLocation getEntityTexture(Entity entity) { return null; }
+		});
 	}
 
 	@Override
@@ -915,6 +922,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerBlockHandler(new RenderConveyor());
 		RenderingRegistry.registerBlockHandler(new RenderConveyorChute());
 		RenderingRegistry.registerBlockHandler(new RenderConveyorLift());
+		RenderingRegistry.registerBlockHandler(new RenderHyperTube());
 		RenderingRegistry.registerBlockHandler(new RenderRTGBlock());
 		RenderingRegistry.registerBlockHandler(new RenderSpikeBlock());
 		RenderingRegistry.registerBlockHandler(new RenderChain());
@@ -2191,6 +2199,9 @@ public class ClientProxy extends ServerProxy {
 			if("fluid".equals(data.getString("mode"))) {
 				int color = data.getInteger("color");
 				debug = new ParticleDebug(man, world, x, y, z, mX, mY, mZ, color);
+			}
+			if ("hypertube".equals(data.getString("mode"))) {
+				debug = new ParticleDebug(man, world, x, y, z, mX, mY, mZ);
 			}
 			Minecraft.getMinecraft().effectRenderer.addEffect(debug);
 		}
