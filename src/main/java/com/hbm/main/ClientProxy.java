@@ -54,6 +54,8 @@ import com.hbm.handler.overlay.FluidDuctHover;
 import com.hbm.handler.overlay.FluidDuctOverlay;
 import com.hbm.handler.overlay.GravitatorOverlay;
 import com.hbm.handler.overlay.HudOverlayManager;
+import com.hbm.handler.overlay.InfotabHandler;
+import com.hbm.handler.overlay.InfotabOverlay;
 import com.hbm.handler.overlay.JetpackOverlay;
 import com.hbm.handler.overlay.MachineHover;
 import com.hbm.handler.overlay.MachineOverlay;
@@ -190,8 +192,9 @@ public class ClientProxy extends ServerProxy {
 		registerClientEventHandler(new FreeCursorHandler());
 		registerClientEventHandler(new FluidDuctHover());
 		registerClientEventHandler(new MachineHover());
+		registerClientEventHandler(new InfotabHandler());
 		registerClientEventHandler(new GravitatorHandler());
-		registerClientEventHandler(new HudOverlayManager().register(new JetpackOverlay()).register(new FluidDuctOverlay()).register(new MachineOverlay()).register(new GravitatorOverlay()));
+		registerClientEventHandler(new HudOverlayManager().register(new JetpackOverlay()).register(new FluidDuctOverlay()).register(new MachineOverlay()).register(new GravitatorOverlay()).register(new InfotabOverlay()));
 		registerClientEventHandler(new EventHandlerParticleEngine());
 		registerClientEventHandler(theInfoSystem);
 		registerClientEventHandler(new NeuralyserFade());
@@ -309,6 +312,7 @@ public class ClientProxy extends ServerProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPASource.class, new RenderPASource());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPABeamline.class, new RenderPABeamline());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDriveRack.class, new RenderDriveRack());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWaffleIron.class, new RenderWaffleIron());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPARFC.class, new RenderPARFC());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPAQuadrupole.class, new RenderPAQuadrupole());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPADipole.class, new RenderPADipole());
