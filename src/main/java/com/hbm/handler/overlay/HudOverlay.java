@@ -2,6 +2,8 @@ package com.hbm.handler.overlay;
 
 import java.util.List;
 
+import com.hbm.handler.FreeCursorHandler;
+import com.hbm.handler.HbmKeybinds;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.relauncher.Side;
@@ -43,7 +45,7 @@ public abstract class HudOverlay extends Gui {
 	}
 
 	public static boolean interactionsEnabled() {
-		return Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+		return FreeCursorHandler.isCursorFree();
 	}
 
 	public void drawLookOverlay(int mouseX, int mouseY, String title, int titleCol, int bgCol, List<String> lines) {

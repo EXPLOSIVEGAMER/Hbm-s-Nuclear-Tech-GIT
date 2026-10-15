@@ -41,7 +41,7 @@ public class HbmKeybinds {
 
 	public static KeyBinding qmaw = new KeyBinding(category + ".qmaw", Keyboard.KEY_F1, category);
 
-	public static KeyBinding freeCursorKey = new KeyBinding(category + ".freeCursor", Keyboard.KEY_LMENU, category);
+	public static KeyBinding freeCursorKey = new KeyBinding(category + ".freeCursor", Keyboard.KEY_G, category);
 
 	public static KeyBinding abilityCycle = new KeyBinding(category + ".ability", -99, category);
 	public static KeyBinding abilityAlt = new KeyBinding(category + ".abilityAlt", Keyboard.KEY_LMENU, category);

@@ -1,5 +1,6 @@
 package com.hbm.handler;
 
+import net.minecraftforge.client.event.MouseEvent;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.extprop.HbmPlayerProps;
@@ -26,6 +27,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import scala.collection.parallel.ParIterableLike;
 
 @SideOnly(Side.CLIENT)
 public class GravitatorHandler {
@@ -59,6 +61,23 @@ public class GravitatorHandler {
 
 		EntityLivingBase target = raycast(mc);
 		if(target != null) PacketDispatcher.wrapper.sendToServer(new GravitatorPacket(GravitatorPacket.GRAB, target.getEntityId()));
+	}
+
+	@SubscribeEvent
+	public void onMouse(MouseEvent event) {
+		if (event.dwheel == 0) return;
+
+		Minecraft client = Minecraft.getMinecraft();
+		EntityPlayer player = client.thePlayer;
+		if (player == null || client.currentScreen != null) return;
+
+		HbmPlayerProps props = HbmPlayerProps.getData(player);
+		if (props.grabbedEntityId == -1) return;
+
+		grabDistance *= event.dwheel > 0 ? 1.1 : 0.9;
+		grabDistance = Math.max(2, Math.min(48D, grabDistance));
+
+		event.setCanceled(true);
 	}
 
 	@SubscribeEvent
